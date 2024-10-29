@@ -1,0 +1,306 @@
+import AppDropdownButton, {
+  AppDropdownIcon,
+  AppDropdownType,
+  LandingDataDisplayType,
+} from "@/components/app-dropdown-folder/app-dropdown"
+import LandingRow from "@/components/landing-row"
+
+import CustomerLayout from "@/components/layouts/customer-layout"
+import Layout from "@/components/layouts/layout"
+import Modal from "@/components/Modal"
+import TestModal from "@/components/test-modal"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
+import { LandingDataRow, Product } from "@/interface/interface"
+
+import { useState } from "react"
+
+export default function AdminDashboard() {
+  const [landingDataList, setLandingData] = useState<LandingDataRow[]>([])
+  const [showLandingForm, showLandingDataForm] = useState(false)
+  const [showAddProduct, showAddProductToLandingRow] = useState(false)
+  /* const [activeLandingDataTitle, setActiveLandingDataTitle] = useState("") */
+  /* const [activeLandingDatType, setActiveLandingDataType] =
+    useState<LandingDataType>() */
+
+  /*  const [activeLandingDataOrder, setActiveLandingDataOrder] = useState() */
+  const [activeLandingData, setActiveLandingData] = useState<LandingDataRow>()
+  const [activeLandingDataIndex, setActiveLandingDataIndex] = useState(0)
+  //function selectLandingComponent(landingDataType: LandingDataType) {}
+
+  function addProductToRow(index: number, product: Product) {
+    console.log(`adding product to ${index}`)
+    // landingDataList[index].products.push(product)
+    const tempLandingDataList = landingDataList.map((item, internalIndex) => {
+      if (internalIndex === index) {
+        item.landing_data_row_children.push(product)
+
+        return item
+      } else {
+        return item
+      }
+    })
+    setLandingData(tempLandingDataList)
+    /*  var tempLandingData = landingDataList
+    setLandingData(tempLandingData) */
+  }
+
+  function removeProductFromRow(index: number, removeFromIndex: number) {
+    console.log(`remove product from ${index}`)
+    // landingDataList[index].products.push(product)
+    const tempLandingDataList = landingDataList.map((item, internalIndex) => {
+      if (internalIndex === index) {
+        console.log("about to delete an item from here")
+        // item.products.filter((prod) => id !== prod?.id)
+        item.landing_data_row_children.splice(removeFromIndex, 1)
+
+        /* item.products.filter((prod)=>{
+
+        }) */
+        return item
+      } else {
+        return item
+      }
+    })
+    setLandingData(tempLandingDataList)
+    /*  var tempLandingData = landingDataList
+    setLandingData(tempLandingData) */
+  }
+
+  function showLandingDataTypeForm(landingDataType: LandingDataDisplayType) {
+    let tempActiveLandingData: LandingDataRow = {
+      display_type: landingDataType,
+      landing_data_row_children: [],
+      title: "",
+      order: 0,
+    }
+    setActiveLandingData(tempActiveLandingData)
+
+    showLandingDataForm(true)
+  }
+
+  function saveActiveLandingData() {
+    if (activeLandingData != null) {
+      console.log("active landing data is not null, so add more landing data")
+      setLandingData([...landingDataList, activeLandingData])
+    } else {
+      console.log("active landing data is null xlx")
+    }
+  }
+
+  function addProductButtonClick(index: number) {
+    setActiveLandingDataIndex(index)
+    showAddProductToLandingRow(true)
+  }
+
+  return (
+    <>
+      <Layout>
+        <div>
+          <div className="w-full flex justify-end items-baseline">
+            <div className="absolute p-2 right-0">
+              <div className="float top-10">
+                <AppDropdownButton
+                  icon={AppDropdownIcon.IoAdd}
+                  buttonTitle="Add Row"
+                  dropdownType={AppDropdownType.textButton}
+                  children={[
+                    {
+                      title: "Carousel",
+                      appDropdownFunction: () => {
+                        console.log("wanna add carousel")
+                        showLandingDataTypeForm(LandingDataDisplayType.Carousel)
+                      },
+                    },
+
+                    {
+                      title: "Landscape",
+                      appDropdownFunction: () => {
+                        showLandingDataTypeForm(
+                          LandingDataDisplayType.Landscape
+                        )
+                      },
+                    },
+
+                    {
+                      title: "Landscape lg",
+                      appDropdownFunction: () => {
+                        showLandingDataTypeForm(
+                          LandingDataDisplayType.LandscapeLg
+                        )
+                      },
+                    },
+                    {
+                      title: "Landscape xl",
+                      appDropdownFunction: () => {
+                        showLandingDataTypeForm(
+                          LandingDataDisplayType.LandscapeXl
+                        )
+                      },
+                    },
+                    {
+                      title: "protriat",
+                      appDropdownFunction: () => {
+                        showLandingDataTypeForm(LandingDataDisplayType.Portriat)
+                      },
+                    },
+                    {
+                      title: "protriat lg",
+                      appDropdownFunction: () => {
+                        showLandingDataTypeForm(
+                          LandingDataDisplayType.PortriatLg
+                        )
+                      },
+                    },
+                    {
+                      title: "protriat xl",
+                      appDropdownFunction: () => {
+                        showLandingDataTypeForm(
+                          LandingDataDisplayType.PortriatXl
+                        )
+                      },
+                    },
+                  ]}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="h-3"></div>
+          {/*  landing row */}
+          {landingDataList && (
+            <div>
+              {landingDataList?.map((landingComponent, index) => (
+                <div className="h-auto " key={index}>
+                  <LandingRow
+                    removeProductFromRow={removeProductFromRow}
+                    index={index}
+                    addProductButtonClicked={addProductButtonClick}
+                    landingData={landingComponent}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+          {/* end landing row */}
+        </div>
+      </Layout>
+
+      {activeLandingData && (
+        <Dialog open={showLandingForm} onOpenChange={showLandingDataForm}>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>
+                New {activeLandingData.display_type} Landing Component
+              </DialogTitle>
+              <DialogDescription>
+                Create title and set a position for this landing data component
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="title" className="text-right">
+                  Title
+                </Label>
+                <Input
+                  required
+                  onChange={(input) => {
+                    setActiveLandingData({
+                      ...activeLandingData!,
+                      title: input.target.value,
+                    })
+                    //setActiveLandingDataTitle(input.target.value)
+                  }}
+                  id="title"
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="order" className="text-right">
+                  Order
+                </Label>
+                <Input
+                  onChange={(input) => {
+                    if (input.target.value) {
+                      setActiveLandingData({
+                        ...activeLandingData!,
+                        order: parseInt(input.target.value),
+                      })
+                    }
+                  }}
+                  type="number"
+                  id="order"
+                  className="col-span-3"
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button
+                onClick={() => {
+                  saveActiveLandingData()
+                  showLandingDataForm(false)
+
+                  console.log("this should close the thing")
+                }}
+                type="submit"
+              >
+                Save changes
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* <Dialog open={showAddProduct} onOpenChange={showAddProductToLandingRow}>
+        <DialogContent className="sm:max-w-[425px] md:max-w-full h-screen">
+          <DialogHeader>
+            <DialogTitle>Add Product</DialogTitle>
+            <DialogDescription>
+              Add product to the selected row
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4 bg-red-400">
+            <div>put search field here</div>
+          </div>
+          <DialogFooter>
+            <Button
+              onClick={() => {
+                // saveActiveLandingData()
+                showAddProductToLandingRow(false)
+
+                console.log("this should close the thing")
+              }}
+              type="submit"
+            >
+              Save changes
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog> */}
+
+      {/* <Modal
+        onClose={() => {
+          showAddProductToLandingRow(false)
+        }}
+        onSubmit={() => {}}
+        isOpen={showAddProduct}
+      /> */}
+      <TestModal
+        index={activeLandingDataIndex}
+        addToProductToList={addProductToRow}
+        showModal={showAddProductToLandingRow}
+        isOpen={showAddProduct}
+      />
+    </>
+  )
+}
