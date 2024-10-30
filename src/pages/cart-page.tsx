@@ -103,7 +103,7 @@ export default function CartPage() {
         )}
 
         {cartStore.items.length > 0 && (
-          <div className="hidden w-full md:grid grid-cols-8 gap-2 font-semibold text-gray-800 bg-slate-200 py-2 ">
+          <div className="hidden w-full md:grid grid-cols-8 gap-2 font-semibold text-gray-600  py-1 ">
             <div className="col-span-4 text-center">Items</div>
             <div className="col-span-1 text-center">Price</div>
             <div className="col-span-1 text-center">Quantity</div>
@@ -157,7 +157,7 @@ export default function CartPage() {
                     //cartStore.actions.removeBasketItem(_item)
                     decreaseCartItem(_item)
                   }}
-                  className="bg-orange-500 basis-1/4 h-8 w-8 rounded-lg text-center hover:shadow-lg "
+                  className="shadow basis-1/4 h-8 w-8 rounded-lg text-center hover:shadow-lg "
                 >
                   -
                 </button>
@@ -169,7 +169,7 @@ export default function CartPage() {
                     // cartStore.actions.addBasketItem(_item, 1)
                     increaseCartItem(_item)
                   }}
-                  className="bg-orange-500 basis-1/4  h-8 w-8 rounded-lg text-center hover:shadow-lg "
+                  className="shadow basis-1/4  h-8 w-8 rounded-lg text-center hover:shadow-lg "
                 >
                   +
                 </button>

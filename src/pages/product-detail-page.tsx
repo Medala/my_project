@@ -23,6 +23,8 @@ import { BasketItem, useBasket } from "@/lib/stores/cart-store-state"
 import { CartItem, Product } from "@/interface/interface"
 import ManageCategoryListItems from "@/components/manage-categories/manage-category-list"
 import useServerCart from "@/hooks/use-server-cart"
+import MedalaImageZoom from "@/components/image-zoom"
+import ImageZoom from "@/components/image-zoom"
 
 const ProductDetailPage = () => {
   const { submitFormMutation } = useServerCart()
@@ -97,6 +99,9 @@ const ProductDetailPage = () => {
   return (
     <>
       <CustomerLayout>
+        <div className="h-3/5 bg-red-200">
+          <ImageZoom />
+        </div>
         <div className="hidden md:grid grid-cols-2 pl-2 ">
           <div className="col-span-1 h-full">
             <div className=" h-3/5 w-full mt-2 sticky top-0 left-0">

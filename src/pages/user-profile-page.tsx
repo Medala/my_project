@@ -231,6 +231,9 @@ export default function UserProfilePage() {
                   action="#"
                 >
                   <div>
+                    <div className="flex justify-center mt-1 font-bold text-gray-500">
+                      {data?.phone}
+                    </div>
                     <label
                       htmlFor="name"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -271,6 +274,7 @@ export default function UserProfilePage() {
                   </button> */}
 
                     <button
+                      type="button"
                       onClick={() => {
                         navigate(-1)
                       }}
