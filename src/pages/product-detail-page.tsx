@@ -11,11 +11,11 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
 import YoutubePlayer from "@/components/ui/youtube-player"
-import { baseServerUrl } from "@/lib/constants"
+import { baseServerUrl, baseStorageUrl } from "@/lib/constants"
 import { fetchProduct } from "@/queries/queries"
 import { useQuery } from "@tanstack/react-query"
-import { Divide } from "lucide-react"
-import { useEffect, useState } from "react"
+import { Divide, ZoomIn } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
 import getYouTubeID from "get-youtube-id"
 import { useMediaQuery } from "@/hooks/use-media-query"
@@ -23,8 +23,7 @@ import { BasketItem, useBasket } from "@/lib/stores/cart-store-state"
 import { CartItem, Product } from "@/interface/interface"
 import ManageCategoryListItems from "@/components/manage-categories/manage-category-list"
 import useServerCart from "@/hooks/use-server-cart"
-import MedalaImageZoom from "@/components/image-zoom"
-import ImageZoom from "@/components/image-zoom"
+import ZoomTest from "@/components/zoom-test"
 
 const ProductDetailPage = () => {
   const { submitFormMutation } = useServerCart()
@@ -45,10 +44,6 @@ const ProductDetailPage = () => {
     // placeholderData: keepPreviousData,
   })
 
-  const tags = Array.from({ length: 50 }).map(
-    (_, i, a) => `v1.2.0-beta.${a.length - i}`
-  )
-
   if (error) {
     console.log(error.message)
   }
@@ -61,6 +56,7 @@ const ProductDetailPage = () => {
       console.log("prod fetched")
       console.log(data)
       var id = getYouTubeID(data.youtube_url!)
+
       setYouTubeVideoId(id)
       console.log(id)
     }
@@ -99,18 +95,20 @@ const ProductDetailPage = () => {
   return (
     <>
       <CustomerLayout>
-        <div className="h-3/5 bg-red-200">
-          <ImageZoom />
-        </div>
+        {/* <div className="h-3/5 bg-red-200">
+          <ZoomTest imageSrc={`${baseServerUrl}/${activePicture}`} />
+        </div> */}
         <div className="hidden md:grid grid-cols-2 pl-2 ">
           <div className="col-span-1 h-full">
-            <div className=" h-3/5 w-full mt-2 sticky top-0 left-0">
+            <div className=" h-3/5 w-full mt-2 sticky top-0 left-0 ">
               <div className="w-full   aspect-square  ">
-                <img
+                {/* <img
                   className="h-4/6 mx-auto w-auto object-contain rounded-lg"
                   src={`${baseServerUrl}/${activePicture}`}
                   alt=""
-                />
+                /> */}
+
+                <ZoomTest imageSrc={`${baseStorageUrl}${activePicture}`} />
 
                 {/*  product pictures carousel below */}
                 <div className="w-full  flex justify-center">
@@ -129,7 +127,7 @@ const ProductDetailPage = () => {
                                 >
                                   <img
                                     className="h-full mx-auto object-contain rounded-sm"
-                                    src={`${baseServerUrl}/${pic}`}
+                                    src={`${baseStorageUrl}${pic}`}
                                     alt=""
                                   />
                                 </CardContent>
@@ -220,6 +218,17 @@ const ProductDetailPage = () => {
                     Add To Cart
                   </button>
                 </div>
+                <div className="w-1/2 flex justify-center mt-4">
+                  <a
+                    aria-label="Chat on WhatsApp"
+                    href="https://wa.me/9383073699"
+                  >
+                    <img
+                      alt="Chat on WhatsApp"
+                      src="/src/assets/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.svg"
+                    />
+                  </a>
+                </div>
               </div>
 
               {data.specification && (
@@ -260,11 +269,11 @@ const ProductDetailPage = () => {
 
         {/* begin mobile and sm view */}
         <div className="md:hidden w-full ">
-          <div className="aspect-square p-2">
+          <div className="aspect-square p-2 w-full">
             {data && (
               <img
-                className="mx-auto w-auto object-contain rounded-lg"
-                src={`${baseServerUrl}/${activePicture}`}
+                className="mx-auto aspect-square w-full object-contain rounded-lg"
+                src={`${baseStorageUrl}${activePicture}`}
                 alt=""
               />
             )}
@@ -286,7 +295,7 @@ const ProductDetailPage = () => {
                           >
                             <img
                               className="h-full mx-auto object-contain rounded-sm"
-                              src={`${baseServerUrl}/${pic}`}
+                              src={`${baseStorageUrl}${pic}`}
                               alt=""
                             />
                           </CardContent>
@@ -319,8 +328,8 @@ const ProductDetailPage = () => {
                 </h4>
               </div>
 
-              <div className="w-full flex justify-center">
-                <div className="w-2/3 justify-around  flex">
+              <div className="w-full flex justify-center ">
+                <div className="justify-around  flex">
                   <button
                     onClick={() => {
                       controlAddToCartQuantity("-")
@@ -367,6 +376,15 @@ const ProductDetailPage = () => {
               </div>
             </div>
           )}
+
+          <div className=" w-full flex justify-center my-8 bg-teal">
+            <a aria-label="Chat on WhatsApp" href="https://wa.me/9383073699">
+              <img
+                alt="Chat on WhatsApp"
+                src="/src/assets/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.svg"
+              />
+            </a>
+          </div>
 
           {data?.specification && (
             <div className="p-2 grow  border rounded-sm m-2">

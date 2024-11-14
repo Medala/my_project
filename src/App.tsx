@@ -12,10 +12,10 @@ import {
   aboutPageUrl,
   contactPageUrl,
   customersPageUrl,
-  inventoryPageUrl,
+  /*   inventoryPageUrl,
   calendarPageUrl,
   groupsPageUrl,
-  tomatoUrl,
+  tomatoUrl, */
   loginUrl,
   createProductUrl,
   logoutUrl,
@@ -29,6 +29,11 @@ import {
   adminCategoriesUrl,
   categoryBrowsePageUrl,
   profileUrl,
+  getMyOrdersApi,
+  ordersUrl,
+  navigateGetAllOrders,
+  adminOrderDetailUrl,
+  userOrderDetailUrl,
 } from "lib/constants"
 import Groups from "pages/groups"
 import TomatoPage from "pages/ tomato"
@@ -39,63 +44,81 @@ import MyProductList from "pages/my-product-list"
 import MyProductDetailEditPage from "pages/my-product-detail-edit-page"
 import Landing from "./pages/landing"
 import CartPage from "./pages/cart-page"
+import OrderPage from "./pages/order-list"
 import ProductDetailPage from "./pages/product-detail-page"
 import AdminDashboard from "./pages/admin-dashboard"
 import ManageCategories from "./pages/manage-categories"
 import CategoryBrowse from "./pages/category-browse-page"
 import UserProfilePage from "./pages/user-profile-page"
+import AllOrderList from "./pages/all-orders-page"
+import AdminOrderDetail from "./pages/admin-order-detail"
+import UserOrderDetailPage from "./pages/user-order-detail-page"
+import { GoogleOAuthProvider } from "@react-oauth/google"
 
 const queryClient = new QueryClient()
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <div className="App">
-        <BrowserRouter>
-          <Routes>
-            <Route index element={<Landing />} />
-            <Route path={landingPageUrl} index element={<Landing />} />
-            <Route
-              path={productDetailUrl}
-              index
-              element={<ProductDetailPage />}
-            />
+    <GoogleOAuthProvider clientId="536946844199-ad8bfq2jkipo3vkhgqk4b40sivgdaltk.apps.googleusercontent.com">
+      <QueryClientProvider client={queryClient}>
+        <div className="App">
+          <BrowserRouter>
+            <Routes>
+              <Route index element={<Landing />} />
+              <Route path={landingPageUrl} index element={<Landing />} />
+              <Route
+                path={productDetailUrl}
+                index
+                element={<ProductDetailPage />}
+              />
 
-            <Route
-              path={categoryBrowsePageUrl}
-              index
-              element={<CategoryBrowse />}
-            />
-            <Route path={homePageurl} index element={<Landing />} />
-            <Route path={cartUrl} index element={<CartPage />} />
-            <Route path={profileUrl} index element={<UserProfilePage />} />
+              <Route
+                path={categoryBrowsePageUrl}
+                index
+                element={<CategoryBrowse />}
+              />
+              <Route path={homePageurl} index element={<Landing />} />
+              <Route path={cartUrl} index element={<CartPage />} />
+              <Route path={ordersUrl} index element={<OrderPage />} />
+              <Route
+                path={userOrderDetailUrl}
+                index
+                element={<UserOrderDetailPage />}
+              />
+              <Route path={profileUrl} index element={<UserProfilePage />} />
 
-            <Route path={aboutPageUrl} element={<About />} />
-            <Route path={contactPageUrl} element={<Contact />} />
-            <Route path={customersPageUrl} element={<Customers />} />
-            <Route path={inventoryPageUrl} element={<Inventory />} />
+              <Route path={aboutPageUrl} element={<About />} />
+              <Route path={contactPageUrl} element={<Contact />} />
+              <Route path={customersPageUrl} element={<Customers />} />
+              {/* <Route path={inventoryPageUrl} element={<Inventory />} />
             <Route path={calendarPageUrl} element={<CalendarPage />} />
             <Route path={groupsPageUrl} element={<Groups />} />
-            <Route path={adminDashboardUrl} element={<AdminDashboard />} />
-            <Route path={adminCategoriesUrl} element={<ManageCategories />} />
+            <Route path={tomatoUrl} element={<TomatoPage />} /> */}
+              <Route path={adminDashboardUrl} element={<AdminDashboard />} />
+              <Route path={adminCategoriesUrl} element={<ManageCategories />} />
+              <Route path={navigateGetAllOrders} element={<AllOrderList />} />
+              <Route
+                path={adminOrderDetailUrl}
+                element={<AdminOrderDetail />}
+              />
 
-            <Route path={tomatoUrl} element={<TomatoPage />} />
-            <Route path={myProductPageUrl} element={<MyProductList />} />
-            <Route
-              path={myProductDetailEditPageUrl}
-              element={<MyProductDetailEditPage />}
-            />
-            <Route
-              path={createProductPageUrl}
-              element={<CreateProductPage />}
-            />
-            <Route path={loginUrl} element={<LoginScreen />} />
+              <Route path={myProductPageUrl} element={<MyProductList />} />
+              <Route
+                path={myProductDetailEditPageUrl}
+                element={<MyProductDetailEditPage />}
+              />
+              <Route
+                path={createProductPageUrl}
+                element={<CreateProductPage />}
+              />
+              <Route path={loginUrl} element={<LoginScreen />} />
 
-            <Route path="*" element={<NoPage />} />
-          </Routes>
-        </BrowserRouter>
-      </div>
-    </QueryClientProvider>
+              <Route path="*" element={<NoPage />} />
+            </Routes>
+          </BrowserRouter>
+        </div>
+      </QueryClientProvider>
+    </GoogleOAuthProvider>
   )
 }
 

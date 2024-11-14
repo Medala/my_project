@@ -1,6 +1,6 @@
 import { LandingRowHeight } from "@/interface/app_enums"
 import { LandingDataRow } from "@/interface/interface"
-import { baseServerUrl } from "@/lib/constants"
+import { baseServerUrl, baseStorageUrl } from "@/lib/constants"
 import { IoAdd, IoTrashBinOutline } from "react-icons/io5"
 import {
   Carousel,
@@ -66,7 +66,7 @@ const LandingCarouselRow = ({
                       <img
                         className="object-fit  h-full w-full"
                         src={
-                          baseServerUrl +
+                          baseStorageUrl +
                           landindDataChild?.picture.thumbnail_path
                         }
                         alt=""

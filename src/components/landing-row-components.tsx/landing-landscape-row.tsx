@@ -1,5 +1,5 @@
 import { LandingDataRow } from "@/interface/interface"
-import { baseServerUrl } from "@/lib/constants"
+import { baseServerUrl, baseStorageUrl } from "@/lib/constants"
 import { Key } from "lucide-react"
 import { FaPlus } from "react-icons/fa"
 import { IoAdd } from "react-icons/io5"
@@ -74,7 +74,8 @@ const LandingLandscapeRow = ({
                     <img
                       className="object-cover  h-full w-full rounded-lg"
                       src={
-                        baseServerUrl + landindDataChild?.picture.thumbnail_path
+                        baseStorageUrl +
+                        landindDataChild?.picture.thumbnail_path
                       }
                       alt=""
                     />

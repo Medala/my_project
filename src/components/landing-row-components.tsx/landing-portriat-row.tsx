@@ -1,5 +1,5 @@
 import { LandingDataRow } from "@/interface/interface"
-import { baseServerUrl } from "@/lib/constants"
+import { baseServerUrl, baseStorageUrl } from "@/lib/constants"
 import { IoAdd, IoTrashBinOutline } from "react-icons/io5"
 import { LandingDataDisplayType } from "../app-dropdown-folder/app-dropdown"
 
@@ -76,7 +76,8 @@ const LandingPortriatRow = ({
                     <img
                       className="h-full aspect-2/3  object-cover"
                       src={
-                        baseServerUrl + landindDataChild?.picture.thumbnail_path
+                        baseStorageUrl +
+                        landindDataChild?.picture.thumbnail_path
                       }
                       alt=""
                     />

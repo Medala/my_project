@@ -37,13 +37,15 @@ import {
   createLandingDataUrl,
   deleteLandingDataRowChildUrl,
   deleteLandingDataRowUrl,
+  homePageurl,
   manageGetAllLandingList,
 } from "@/lib/constants"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 
 import { z, object, array, string } from "zod"
 
@@ -56,6 +58,7 @@ const schema = z.object({
 type DashboardFormFieldZ = z.infer<typeof schema>
 
 export default function AdminDashboard() {
+  const navigate = useNavigate()
   const queryClient = useQueryClient()
   const [landingDataList, setLandingData] = useState<LandingDataRow[]>([])
   const [showLandingForm, showLandingDataForm] = useState(false)
@@ -306,6 +309,13 @@ export default function AdminDashboard() {
     console.log(data)
   }
 
+  useEffect(() => {
+    console.log("we have the total page on use effect")
+    if (localStorage.getItem("role") !== "admin") {
+      navigate(homePageurl)
+    }
+  }, [localStorage.getItem("role")])
+
   return (
     <>
       <Layout>
@@ -396,6 +406,9 @@ export default function AdminDashboard() {
             </div>
           )}
           {/* end landing row */}
+
+          {/* filler */}
+          <div className="h-80"></div>
         </div>
       </Layout>
 

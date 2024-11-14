@@ -9,6 +9,7 @@ export interface Product {
   youtube_url: string | null
   images: [string]
   price: number
+  gst: number
   compared_price: number
   specification?: string
   pictures: ProductPictures
@@ -16,9 +17,12 @@ export interface Product {
 }
 
 export interface User {
+  email: string
+  picture: string
   name: string
   phone: string
   address: string
+  role: string
 }
 
 export interface ProductWithCategory {
@@ -29,6 +33,8 @@ export interface ProductWithCategory {
   images: [string]
   price: number
   compared_price: number
+  quantity: number
+  gst: number
   product_video: string | null
   pictures: ProductPictures
   specification: string | null
@@ -124,6 +130,17 @@ export interface PaginatedData {
   currentPage: number */
 }
 
+export interface PaginatedOrderData {
+  data: ServerOrderData[]
+  last_page: number
+  current_page: number | undefined
+  total: number
+
+  /* nextPage: number | null
+  lastPage: number
+  currentPage: number */
+}
+
 export interface PaginatedProducts {
   data: [Product]
   last_page: number
@@ -170,9 +187,25 @@ export interface Order {
   totalSaved: number | undefined
 }
 
+export interface ServerOrderData {
+  created_at: Date
+  id: number
+  message: string | null
+  completed: boolean
+  remark: string | null
+  shipping_charge: string | null
+  total_payable: number
+  total_price: number
+  ordered_items: ServerOrder[]
+}
+
 export interface ServerOrder {
   product_id: number
   order_quantity: number
+  quantity: number
+  price: number
+  total_item_price: number
+  product: Product | null
 }
 
 export interface ServerUploadOrder {

@@ -3,6 +3,11 @@ import { BsShop } from "react-icons/bs"
 import Dropdown from "./dropdown-folder/Dropdown"
 import DropdownItem from "./dropdown-folder/DropdownItem"
 import { NavLink, useNavigate } from "react-router-dom"
+import { GiDrill } from "react-icons/gi"
+import { IoSearchOutline } from "react-icons/io5"
+import { RxHamburgerMenu } from "react-icons/rx"
+
+import { IoHomeOutline } from "react-icons/io5"
 import {
   aboutPageUrl,
   cartUrl,
@@ -10,6 +15,7 @@ import {
   homePageurl,
   landingPageUrl,
   loginUrl,
+  ordersUrl,
   profileUrl,
 } from "lib/constants"
 import AppDropdownButton, {
@@ -20,6 +26,8 @@ import AppDropdownButton, {
 import CartComponent from "./cart"
 import MainMenu from "./ui/main-menu"
 import { useBasket } from "@/lib/stores/cart-store-state"
+import ProductSearchNavbar from "./product-search-navbar"
+import ProfileDropdownButton from "./app-dropdown-folder/profile-dropdown-button"
 
 /* const loginDropdown: AppDropdownChild = {
   title: "Login",
@@ -48,7 +56,7 @@ export default function Navbar() {
   const testButton: AppDropdownChild = {
     title: "User name",
     appDropdownFunction: () => {
-      alert("aa panda")
+      // alert("aa panda")
     },
   }
 
@@ -56,6 +64,13 @@ export default function Navbar() {
     title: "Profile",
     appDropdownFunction: () => {
       navigate(profileUrl)
+    },
+  }
+
+  const ordersButton: AppDropdownChild = {
+    title: "Orders",
+    appDropdownFunction: () => {
+      navigate(ordersUrl)
     },
   }
 
@@ -69,7 +84,6 @@ export default function Navbar() {
   const loginLogout: AppDropdownChild = {
     title: localStorage.getItem("token") ? "Logout" : "Login",
     appDropdownFunction: () => {
-      alert("sambar toon")
       console.log(localStorage.getItem("token"))
 
       localStorage.getItem("token") ? logoutAndRedirect() : goToLogin()
@@ -101,15 +115,48 @@ export default function Navbar() {
     toggleTopRightMenu(false)
   }
 
+  function returnUserButtons(role: string | null) {
+    if (role === "admin") {
+      return [profileButton, admin, loginLogout]
+    }
+    if (role === "customer") {
+      return [profileButton, ordersButton, loginLogout]
+    }
+
+    if (role === "manager") {
+      return [profileButton, loginLogout]
+    } else return [loginLogout]
+  }
+
+  function getProfilePic(): string | null {
+    const user = localStorage.getItem("user")
+    if (user !== null) {
+      const us = JSON.parse(user)
+      console.log("we have a user in storage")
+      console.log(us.picture)
+      return us.picture ?? null
+    } else {
+      console.log("no user in storageeeeeee")
+      return null
+    }
+  }
+
   return (
     <>
-      <nav className=" relative hover:shadow-lg transition duration-150">
+      <nav className="relative hover:shadow-lg transition duration-150 hidden md:block">
         <div className=" flex h-16 items-center justify-between ">
           <div className="flex space-x-4 ">
             <NavLink to={landingPageUrl}>
-              <div className="rounded-full bg-orange-300 hover:bg-orange-500 cursor-pointer h-12 w-12 my-auto mx-4  flex items-center shadow-sm hover:shadow-lg transition-all duration-100">
-                <div className="mx-auto text-gray-900 font-bold">
-                  <BsShop />
+              <div className="flex h-full  ">
+                <div className="rounded-full bg-orange-400 hover:bg-orange-500 cursor-pointer h-12 w-12 my-auto mx-4  flex items-center shadow-sm hover:shadow-lg transition-all duration-100">
+                  <div className="mx-auto text-gray-900 ">
+                    <GiDrill size={40} />
+                  </div>
+                </div>
+                <div className="flex md:items-end">
+                  <span className="flex items-baseline font-bold md:text-2xl text-orange-500 ">
+                    Sarah Power Tools
+                  </span>
                 </div>
               </div>
             </NavLink>
@@ -118,6 +165,10 @@ export default function Navbar() {
                     <div className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium  my-auto hover:bg-gray-700 hover:cursor-pointer">Projects</div>
                     <div className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium my-auto hover:bg-gray-700 hover:cursor-pointer">Calendar</div>
                */}{" "}
+          </div>
+
+          <div className="md:w-2/6 ">
+            <ProductSearchNavbar />
           </div>
 
           <div className="pr-2 z-10 flex items-center justify-between w-4/12 sm:w-6/12 md:w-2/12 ">
@@ -129,10 +180,11 @@ export default function Navbar() {
               <CartComponent cartColor="black" />{" "}
             </button>
             <AppDropdownButton
+              pictureUrl={getProfilePic()}
               icon={AppDropdownIcon.user}
               buttonTitle=""
               dropdownType={AppDropdownType.iconButton}
-              children={[testButton, profileButton, admin, loginLogout]}
+              children={returnUserButtons(localStorage.getItem("role"))}
             />
           </div>
           {/* <Dropdown contents={items}></Dropdown> */}
@@ -143,6 +195,54 @@ export default function Navbar() {
           <MainMenu setCloseMenu={setCloseMenu} isOpen={closeBrowseMenu} />
         </div>
       </nav>
+
+      <div className="md:hidden  mt-4 w-full  ">
+        <div className="flex space-x-4 justify-between">
+          <NavLink to={landingPageUrl}>
+            <div className="flex h-full items-center ">
+              <div className="rounded-full bg-orange-400 hover:bg-orange-500 cursor-pointer h-12 w-12 my-auto mx-4  flex items-center shadow-sm hover:shadow-lg transition-all duration-100">
+                <div className="mx-auto text-gray-900 ">
+                  <GiDrill size={40} />
+                </div>
+              </div>
+              <div className="flex md:items-end">
+                <span className="flex items-baseline font-bold md:text-2xl text-orange-500 ">
+                  Sarah Power Tools
+                </span>
+              </div>
+            </div>
+          </NavLink>
+          <div className="pr-2">
+            <ProfileDropdownButton
+              pictureUrl={getProfilePic()}
+              icon={AppDropdownIcon.user}
+              buttonTitle=""
+              dropdownType={AppDropdownType.iconButton}
+              children={returnUserButtons(localStorage.getItem("role"))}
+            />
+          </div>
+          {/*         <div className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium my-auto hover:bg-gray-700 hover:cursor-pointer">Dashboard</div>
+                    <div className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium  my-auto hover:bg-gray-700 hover:cursor-pointer">Team</div>
+                    <div className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium  my-auto hover:bg-gray-700 hover:cursor-pointer">Projects</div>
+                    <div className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium my-auto hover:bg-gray-700 hover:cursor-pointer">Calendar</div>
+               */}{" "}
+        </div>
+      </div>
+
+      <div className="md:hidden fixed bottom-0 w-full bg-gray-900 h-20 py-2 flex justify-between items-center px-4">
+        <MainMenu setCloseMenu={setCloseMenu} isOpen={closeBrowseMenu} />
+        <NavLink to={landingPageUrl}>
+          <IoHomeOutline color="white " size={28} />
+        </NavLink>
+        <IoSearchOutline color="white " size={28} />
+        <button
+          onClick={() => {
+            goToCart()
+          }}
+        >
+          <CartComponent cartColor="white" />{" "}
+        </button>
+      </div>
     </>
   )
 }

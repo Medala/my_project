@@ -1,3 +1,4 @@
+import CustomerLayout from "@/components/layouts/customer-layout"
 import Navbar from "@components/Navbar"
 import Layout from "@components/layouts/layout"
 import LoginForm from "@components/login-form"
@@ -30,7 +31,7 @@ const LoginScreen = () => {
 
   return (
     <>
-      <Layout>
+      <CustomerLayout>
         {showLoginFrom && (
           <LoginForm
             passPhone={getPhone}
@@ -47,7 +48,7 @@ const LoginScreen = () => {
             otpId={returnedOtpId}
           />
         )}
-      </Layout>
+      </CustomerLayout>
     </>
   )
 }

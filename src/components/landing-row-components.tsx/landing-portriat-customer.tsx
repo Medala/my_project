@@ -1,5 +1,9 @@
 import { LandingDataChild, LandingDataRow } from "@/interface/interface"
-import { baseServerUrl, navigateProductDetailUri } from "@/lib/constants"
+import {
+  baseServerUrl,
+  baseStorageUrl,
+  navigateProductDetailUri,
+} from "@/lib/constants"
 import { IoAdd, IoTrashBinOutline } from "react-icons/io5"
 import { LandingDataDisplayType } from "../app-dropdown-folder/app-dropdown"
 import { useNavigate } from "react-router-dom"
@@ -71,15 +75,14 @@ const LandingPortriatRowCustomer = ({
                     <img
                       className="h-full object-cover"
                       src={
-                        baseServerUrl + landindDataChild?.picture.thumbnail_path
+                        baseStorageUrl +
+                        landindDataChild?.picture.thumbnail_path
                       }
                       alt=""
                     />
                   </div>
 
-                  <p className="leading-1 [&:not(:first-child)]:mt-1 line-clamp-2 text-xs  sm:text-sm font-semibold text-gray-600">
-                    apple
-                  </p>
+                  <p className="leading-1 [&:not(:first-child)]:mt-1 line-clamp-2 text-xs  sm:text-sm font-semibold text-gray-600"></p>
                 </div>
               )
             }

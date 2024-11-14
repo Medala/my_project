@@ -1,9 +1,9 @@
 import { User } from "@/interface/interface"
-import { getUserProfile, updateProfileUrl } from "@/lib/constants"
+import { getUserProfile, homePageurl, updateProfileUrl } from "@/lib/constants"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
-import { FaRegUser } from "react-icons/fa"
+import { FaCheck, FaRegUser } from "react-icons/fa"
 import { z } from "zod"
 import { toast } from "./ui/use-toast"
 import { useEffect, useState } from "react"
@@ -13,6 +13,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog"
+import useServerOrder from "@/hooks/use-server-order"
+import { useNavigate } from "react-router-dom"
 
 const schema = z.object({
   name: z.string().min(0).max(300),
@@ -29,6 +31,17 @@ interface CheckoutProps {
 const CheckoutForm = ({ totalItemCount, totalPayable }: CheckoutProps) => {
   const queryClient = useQueryClient()
   const [showProfileForm, setShowProfileForm] = useState(false)
+  const navigate = useNavigate()
+  const [verified, setVerified] = useState(false)
+
+  function redirectAfterSumbit() {
+    setVerified(true)
+    setTimeout(() => {
+      navigate(homePageurl)
+    }, 1000)
+  }
+
+  const { sumbitOrderMutation } = useServerOrder(redirectAfterSumbit)
 
   async function fetchUserData(): Promise<User> {
     console.log("Bearer " + localStorage.getItem("token"))
@@ -117,6 +130,7 @@ const CheckoutForm = ({ totalItemCount, totalPayable }: CheckoutProps) => {
     onSuccess: (data) => {
       console.log("success profile update success")
       console.log(data)
+
       /*  toast({
             description: "New category created",
           }) */
@@ -150,6 +164,10 @@ const CheckoutForm = ({ totalItemCount, totalPayable }: CheckoutProps) => {
     submitFormMutation.mutate(submittedData)
   }
 
+  function placeOrderToServer() {
+    sumbitOrderMutation.mutate()
+  }
+
   return (
     <>
       {showProfileForm === false && (
@@ -177,17 +195,33 @@ const CheckoutForm = ({ totalItemCount, totalPayable }: CheckoutProps) => {
               <div>&#8377; {totalPayable}</div>
             </div>
           </div>
+
           <DialogFooter>
-            <div className=" flex justify-end mt-8">
-              <button
-                onClick={() => {
-                  //
-                }}
-                className=" bg-orange-500 px-4 py-2 rounded-lg text-center font-semibold text-slate-600 hover:shadow-lg "
-              >
-                Place Order
-              </button>
-            </div>
+            {verified && (
+              <div className="w-full">
+                <div className="dark:bg-gray-800 dark:border-gray-700 flex h-40 items-center justify-center rounded-md">
+                  <div className="text-xl  font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    Order Placed
+                  </div>
+                  <span className="px-2 text-2xl">
+                    <FaCheck color="green" />
+                  </span>
+                </div>
+              </div>
+            )}
+            {verified === false && (
+              <div className="flex justify-end mt-8">
+                <button
+                  type="button"
+                  onClick={() => {
+                    placeOrderToServer()
+                  }}
+                  className=" bg-orange-500 px-4 py-2 rounded-lg text-center font-semibold text-slate-600 hover:shadow-lg "
+                >
+                  Place Order
+                </button>
+              </div>
+            )}
             {/* <div className=" flex justify-end mt-8">
               <a aria-label="Chat on WhatsApp" href="https://wa.me/9383073699">
                 <img

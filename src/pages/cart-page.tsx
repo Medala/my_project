@@ -12,6 +12,7 @@ import {
 import useServerCart from "@/hooks/use-server-cart"
 import {
   baseServerUrl,
+  baseStorageUrl,
   loginUrl,
   navigateProductDetailUri,
 } from "@/lib/constants"
@@ -103,7 +104,7 @@ export default function CartPage() {
         )}
 
         {cartStore.items.length > 0 && (
-          <div className="hidden w-full md:grid grid-cols-8 gap-2 font-semibold text-gray-600  py-1 ">
+          <div className="hidden  w-full md:grid grid-cols-8 gap-2 font-semibold text-gray-600  py-1 ">
             <div className="col-span-4 text-center">Items</div>
             <div className="col-span-1 text-center">Price</div>
             <div className="col-span-1 text-center">Quantity</div>
@@ -130,7 +131,7 @@ export default function CartPage() {
                   <div className="col-span-1 px-2">
                     <img
                       className="mx-auto w-auto object-contain rounded-sm"
-                      src={`${baseServerUrl}/${_item.image_url}`}
+                      src={`${baseStorageUrl}${_item.image_url}`}
                       alt=""
                     />
                   </div>
@@ -195,7 +196,7 @@ export default function CartPage() {
         })}
 
         {cartStore.items.length > 0 && (
-          <div className="hidden md:flex w-full justify-end text-gray-500">
+          <div className="hidden md:flex  w-full justify-end text-gray-500">
             <div>
               <div className="mr-4 mt-4 grid grid-cols-2 space-x-4 font-semibold">
                 <div>Items Count</div>
@@ -218,19 +219,20 @@ export default function CartPage() {
         {/* start of mobile view */}
         {cartStore.items.map((_item, index) => {
           return (
-            <div key={index} className="md:hidden">
+            <div key={index} className="md:hidden ">
+              <div className="font-semibold text-gray-700 pl-2 mt-2">Cart:</div>
               <div className="w-full  m-2 rounded-sm grid grid-cols-5 overflow-hidden shadow-sm ">
                 <div className="col-span-1 aspect-square ">
                   <img
                     className="mx-auto w-auto object-contain rounded-sm"
-                    src={`${baseServerUrl}/${_item.image_url}`}
+                    src={`${baseStorageUrl}${_item.image_url}`}
                     alt=""
                   />
                 </div>
                 <div className="col-span-4  ">
                   <div className="line-clamp-2 text-xs p-1">{_item.title}</div>
 
-                  <div className="w-full h-full  p-2 text-xs">
+                  <div className="w-full   p-2 text-xs">
                     <div className="flex justify-between space-x-2">
                       <div className="flex-1">
                         <div>Price:</div>
@@ -298,16 +300,18 @@ export default function CartPage() {
         </div>
 
         {cartStore.items.length > 0 && (
-          <div className="fixed bottom-20 md:bottom-8 right-8 ">
-            <button
-              onClick={() => {
-                proceedToCheckout()
-              }}
-              className="bg-orange-400 hover:bg-orange-500 text-white cursor-pointer rounded-full py-2 px-6 shadow-lg"
-            >
-              {/*  {isSubmitting ? "Loading..." : "Save"} */}
-              Proceed to Checkout
-            </button>
+          <div>
+            <div className="fixed bottom-24 md:bottom-8 right-8 ">
+              <button
+                onClick={() => {
+                  proceedToCheckout()
+                }}
+                className="bg-orange-400 hover:bg-orange-500 text-white cursor-pointer rounded-full py-2 px-6 shadow-lg"
+              >
+                {/*  {isSubmitting ? "Loading..." : "Save"} */}
+                Proceed to Checkout
+              </button>
+            </div>
           </div>
         )}
 

@@ -1,19 +1,31 @@
 import Navbar from "@components/Navbar"
 import React, { useState, useRef, useEffect } from "react"
 import { useForm, useFormState } from "react-hook-form"
-
+import { jwtDecode } from "jwt-decode"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import { FcGoogle } from "react-icons/fc"
 
 import {
   QueryClient,
   QueryClientProvider,
   useMutation,
   useQuery,
+  useQueryClient,
 } from "@tanstack/react-query"
-import { postNewUserUrl } from "lib/constants"
+import {
+  getGoogleLoginUrlApi,
+  homePageurl,
+  postNewUserUrl,
+} from "lib/constants"
 import { FaSquareRootVariable } from "react-icons/fa6"
 import { toast } from "./ui/use-toast"
+import getGoogleLoginUrlString from "@/hooks/get-google-login-url"
+import { useNavigate } from "react-router-dom"
+import { GoogleLogin } from "@react-oauth/google"
+import useGoogleAuthMutation from "@/hooks/use-google-auth-mutation"
+import { User } from "@/interface/interface"
+import { useBasket } from "@/lib/stores/cart-store-state"
 
 interface Props {
   /* saveEdit:(item:InventoryItem, index:number) => void; */
@@ -48,6 +60,7 @@ const LoginForm = ({
   passPhone,
 }: Props) => {
   const [userPhoneInput, setUserPhoneInput] = useState(0)
+  const cartStore = useBasket()
 
   const requestOptions = {
     method: "POST",
@@ -60,6 +73,8 @@ const LoginForm = ({
       user_phone: userPhoneInput,
     }),
   }
+
+  const navigate = useNavigate()
 
   const formMutation = useMutation({
     mutationFn: async () => {
@@ -141,6 +156,76 @@ const LoginForm = ({
     reset()
   }
 
+  //const queryClient = useQueryClient()
+
+  /*  async function fetchGoogleLoginUrl(): Promise<any> {
+    console.log("Bearer " + localStorage.getItem("token"))
+    const response = await fetch(getGoogleLoginUrlApi, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+    if (!response.ok) {
+      throw new Error("Something went wrong")
+    }
+
+    return response.json()
+  } */
+
+  /* const googleLoginUrlFetcher = useQuery({
+    queryKey: ["get_google_login_url"],
+    queryFn: () => fetchGoogleLoginUrl(),
+    // placeholderData: keepPreviousData,
+  }) */
+  /* if (data) {
+    console.log("google login url Fetched")
+
+    console.log(data)
+  }
+  if (error) {
+    console.log(error)
+  } */
+  function successLoginCallback(data: any) {
+    console.log(data)
+    //  console.log(data.cart_items)
+    localStorage.setItem("token", data.token)
+    localStorage.setItem("role", data.role)
+    localStorage.setItem("user", JSON.stringify(data.user))
+    if (data.cart !== null) {
+      console.log(data.cart)
+      data.cart["cart_items"].map((item) => {
+        console.log(item["product"])
+        cartStore.actions.addBasketItem(item["product"], item["quantity"])
+      })
+    }
+    console.log(localStorage.getItem("token") + " is the stored token")
+    navigate(homePageurl)
+  }
+
+  const { googleAuthMutation } = useGoogleAuthMutation(successLoginCallback)
+
+  function fetcherRun(cred: string) {
+    const decoded = jwtDecode<User>(cred)
+    const appUser = {
+      email: decoded.email,
+      picture: decoded.picture,
+      name: decoded.name,
+    }
+    // console.log(decoded)
+    googleAuthMutation.mutate(JSON.stringify(appUser))
+
+    /* console.log(data)
+    //window.location.href = data.url
+    if (error) {
+      console.log("O auth api error")
+      console.log(error)
+    } */
+  }
+
   //const loginFormData = ({user_phone: 23452453453});
 
   // const response = await fetch(postNewUserUrl, requestOptions)
@@ -151,8 +236,30 @@ const LoginForm = ({
 
   return (
     <>
-      <div className="bg-gray-50 dark:bg-gray-900 h-screen">
-        <div className="flex flex-col items-center -mt-40 justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <div className="w-full h-screen md:h-full  flex items-center justify-center">
+        <div className="rounded-lg border md:mt-8  p-8 shadow-lg ">
+          <div className="text-center font-light text-gray-600">
+            Login / Register
+          </div>
+          <FcGoogle size={200} />
+          <GoogleLogin
+            shape="pill"
+            size="large"
+            onSuccess={(credentialResponse) => {
+              console.log(credentialResponse)
+              fetcherRun(credentialResponse.credential!)
+            }}
+            onError={() => {
+              console.log("Login Failed")
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Use div block below if OTP feature is enabled in the future */}
+      {/* <div className="bg-gray-50 dark:bg-gray-900 h-screen">
+        <div className="flex flex-col items-center  justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          
           <a
             href="#"
             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
@@ -162,7 +269,6 @@ const LoginForm = ({
               src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
               alt="logo"
             ></img>
-            Medala
           </a>
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -192,18 +298,18 @@ const LoginForm = ({
                   ></input>
                 </div>
 
-                {/* <div className="flex items-center justify-between">
-                      <div className="flex items-start">
-                          <div className="flex items-center h-5">
-                            <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required></input>
-                          </div>
-                          <div className="ml-3 text-sm">
-                            <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
-                          </div>
-                      </div>
-                      <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
-                  </div> */}
-                <div className="w-full  flex justify-end">
+             
+                <div className="w-full  flex justify-between">
+                  <button
+                    onClick={() => {
+                      //fetcherRun()
+                    }}
+                    type="button"
+                    className="border px-8 py-1 rounded-lg bg-orange-400 hover:bg-orange-500 transition-colors duration-200 hover:shadow-lg text-gray-800"
+                  >
+                    Login with Google
+                  </button>
+
                   <button
                     type="submit"
                     className="border px-8 py-1 rounded-lg bg-orange-400 hover:bg-orange-500 transition-colors duration-200 hover:shadow-lg text-gray-800"
@@ -211,13 +317,7 @@ const LoginForm = ({
                     Send OTP
                   </button>
                 </div>
-
-                {/*  <button
-                  type="submit"
-                  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                >
-                  Send OTP
-                </button> */}
+              
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   A one time password will be sent to you number?
                 </p>
@@ -225,7 +325,7 @@ const LoginForm = ({
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

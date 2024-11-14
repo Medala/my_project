@@ -61,7 +61,7 @@ const AppPagination = ({
 
   return (
     <div className=" w-full mt-8 text-gray-500">
-      <div className="mx-auto w-4/6  flex space-x-8 justify-center  align-middle">
+      <div className="mx-auto w-full  md:w-4/6  flex space-x-8 justify-center  align-middle">
         {currentPage !== 1 && (
           <div
             onClick={() => {

@@ -3,12 +3,13 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import {
   baseApiUrl,
   baseServerUrl,
+  baseStorageUrl,
   createProductPageUrl,
   myProductDetailEditPageUrl,
   myProductListApi,
   navigateProductEditUri,
 } from "lib/constants"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { IoAdd } from "react-icons/io5"
 import { useNavigate, useSearchParams } from "react-router-dom"
 
@@ -157,8 +158,8 @@ const MyProductList = () => {
                     <AspectRatio ratio={2 / 3}>
                       <img
                         className="h-full aspect-2/3 object-cover rounded-l-lg "
-                        src={`${baseServerUrl}/${product.image_url}`}
-                        alt="asdfasdfasdf"
+                        src={`${baseStorageUrl}${product.image_url}`}
+                        alt={product.title}
                       ></img>
                     </AspectRatio>
                   </div>

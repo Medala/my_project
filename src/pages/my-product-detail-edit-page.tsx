@@ -50,6 +50,8 @@ const schema = z.object({
   youtubeUrl: z.string().nullable(),
   price: z.coerce.number().min(1, "Price is required"),
   comparedPrice: z.coerce.number(),
+  quantity: z.coerce.number(),
+  gst: z.coerce.number(),
   imageUrl: z.string(),
   images: z.any(),
 })
@@ -187,6 +189,8 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
       youtubeUrl: data?.product_video,
       price: data?.price,
       comparedPrice: data?.compared_price,
+      quantity: data?.quantity,
+      gst: data?.gst,
       imageUrl: data?.image_url,
     })
     if (data) {
@@ -218,6 +222,8 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
       formData.append("specifications", variables?.specifications!)
       formData.append("price", variables.price.toString())
       formData.append("comopared_price", variables.comparedPrice.toString())
+      formData.append("quantity", variables.quantity.toString())
+      formData.append("gst", variables.gst.toString())
       formData.append("youtube_url", variables?.youtubeUrl!)
       acceptedFiles.forEach((picFile, index) => {
         if (index <= allowedPicIndex) {
@@ -444,7 +450,7 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
   return (
     <>
       <Layout>
-        <div className="w-full">
+        <div className="w-full ">
           <form onSubmit={handleSubmit(onSubmit)} action="#">
             <div className="w-full py-2 text-center px-4 flex justify-between items-center text-gray-900">
               <button
@@ -570,27 +576,70 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
                 )}
               </div>
 
-              <div className="px-4 pb-1 pt-2 w-full">
+              <div className="px-4 pb-1 pt-2">
                 <label
-                  htmlFor="youtube_url"
+                  htmlFor="quantity"
                   className="mb-2 block text-sm font-medium text-gray-900"
                 >
-                  Youtube Url:
+                  Compared Price:
                 </label>
                 <input
-                  {...register("youtubeUrl")}
-                  id="youtube_url"
+                  {...register("quantity")}
+                  type="number"
+                  id="quantity"
                   aria-describedby="helper-text-explanation"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                  placeholder="youtube video url"
                 />
-                {errors.youtubeUrl && (
+                {errors.quantity && (
                   <span className="text-xs text-red-500">
-                    {errors.youtubeUrl.message}
+                    {errors.quantity.message}
+                  </span>
+                )}
+              </div>
+
+              <div className="px-4 pb-1 pt-2">
+                <label
+                  htmlFor="compared-price"
+                  className="mb-2 block text-sm font-medium text-gray-900"
+                >
+                  GST:
+                </label>
+                <input
+                  {...register("gst")}
+                  type="number"
+                  id="gst"
+                  aria-describedby="helper-text-explanation"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                />
+                {errors.gst && (
+                  <span className="text-xs text-red-500">
+                    {errors.gst.message}
                   </span>
                 )}
               </div>
             </div>
+
+            <div className="px-4 pb-1 pt-2 w-full">
+              <label
+                htmlFor="youtube_url"
+                className="mb-2 block text-sm font-medium text-gray-900"
+              >
+                Youtube Url:
+              </label>
+              <input
+                {...register("youtubeUrl")}
+                id="youtube_url"
+                aria-describedby="helper-text-explanation"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="youtube video url"
+              />
+              {errors.youtubeUrl && (
+                <span className="text-xs text-red-500">
+                  {errors.youtubeUrl.message}
+                </span>
+              )}
+            </div>
+
             <input
               {...register("imageUrl")}
               type="hidden"
@@ -772,7 +821,7 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
                 {isSubmitting ? "Loading..." : "Save"}
               </button> */}
 
-              <div className="fixed bottom-4 right-4">
+              <div className="fixed bottom-16 md:bottom-4 right-4">
                 <button
                   disabled={isSubmitting}
                   className="bg-orange-400 hover:bg-orange-500 text-white cursor-pointer rounded-full py-2 px-6 shadow-lg"

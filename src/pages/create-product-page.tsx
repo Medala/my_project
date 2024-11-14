@@ -34,6 +34,7 @@ const schema = z.object({
   description: z.string().max(1000),
   specifications: z.string().max(1000).nullable(),
   price: z.coerce.number().min(1, "Price is required"),
+  gst: z.coerce.number(),
   comparedPrice: z.coerce.number(),
   quantity: z.coerce.number().nullable(),
   imageUrl: z.string(),
@@ -148,6 +149,7 @@ const CreateProductPage = () => {
       fData.append("youtube_url", variables?.youtubeUrl!)
       // fData.append("image_url", "https://picsum.photos/200/300")
       fData.append("compared_price", variables.comparedPrice.toString())
+      fData.append("gst", variables.gst.toString())
 
       acceptedFiles.forEach((picFile, index) => {
         fData.append(`images[${index}]`, picFile)
@@ -173,6 +175,10 @@ const CreateProductPage = () => {
         body: fData,
       })
 
+      if (!response.ok) {
+        throw await response.json()
+      }
+
       return response.json()
     },
     onSuccess: (data) => {
@@ -185,7 +191,8 @@ const CreateProductPage = () => {
       navigateToProductList()
     },
     onError: (errors) => {
-      console.log(errors.message)
+      console.log("there is an error")
+      console.log(errors)
       toast({
         description: errors.message,
       })
@@ -381,6 +388,28 @@ const CreateProductPage = () => {
 
               <div className="px-4 pb-1 pt-2">
                 <label
+                  htmlFor="compared-price"
+                  className="mb-2 block text-sm font-medium text-gray-900"
+                >
+                  GST:
+                </label>
+                <input
+                  {...register("gst")}
+                  type="number"
+                  id="gst"
+                  aria-describedby="helper-text-explanation"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                  placeholder=""
+                />
+                {errors.gst && (
+                  <span className="text-xs text-red-500">
+                    {errors.gst.message}
+                  </span>
+                )}
+              </div>
+
+              <div className="px-4 pb-1 pt-2">
+                <label
                   htmlFor="quantity"
                   className="mb-2 block text-sm font-medium text-gray-900"
                 >
@@ -400,27 +429,26 @@ const CreateProductPage = () => {
                   </span>
                 )}
               </div>
-
-              <div className="px-4 pb-1 pt-2 w-full">
-                <label
-                  htmlFor="youtube_url"
-                  className="mb-2 block text-sm font-medium text-gray-900"
-                >
-                  Youtube Url:
-                </label>
-                <input
-                  {...register("youtubeUrl")}
-                  id="youtube_url"
-                  aria-describedby="helper-text-explanation"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                  placeholder="youtube video url"
-                />
-                {errors.youtubeUrl && (
-                  <span className="text-xs text-red-500">
-                    {errors.youtubeUrl.message}
-                  </span>
-                )}
-              </div>
+            </div>
+            <div className="px-4 pb-1 pt-2 w-full">
+              <label
+                htmlFor="youtube_url"
+                className="mb-2 block text-sm font-medium text-gray-900"
+              >
+                Youtube Url:
+              </label>
+              <input
+                {...register("youtubeUrl")}
+                id="youtube_url"
+                aria-describedby="helper-text-explanation"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="youtube video url"
+              />
+              {errors.youtubeUrl && (
+                <span className="text-xs text-red-500">
+                  {errors.youtubeUrl.message}
+                </span>
+              )}
             </div>
             <input
               {...register("imageUrl")}
@@ -523,7 +551,7 @@ const CreateProductPage = () => {
             <button
               disabled={isSubmitting}
               type="submit"
-              className=" fixed bottom-4 right-4 mb-2 me-2 bg-orange-400 hover:bg-orange-500 text-white cursor-pointer rounded-full py-2 px-6 shadow-lg"
+              className=" fixed bottom-14 right-4 mb-2 me-2 bg-orange-400 hover:bg-orange-500 text-white cursor-pointer rounded-full py-2 px-6 shadow-lg"
             >
               {isSubmitting ? "Loading..." : "Save"}
             </button>

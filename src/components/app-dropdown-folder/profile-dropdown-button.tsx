@@ -38,7 +38,7 @@ interface AppDropdownProperty {
   children: Array<AppDropdownChild>
 }
 
-export default function AppDropdownButton({
+export default function ProfileDropdownButton({
   pictureUrl,
   dropdownType,
   buttonTitle,

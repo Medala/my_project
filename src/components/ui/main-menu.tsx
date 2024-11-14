@@ -18,6 +18,7 @@ import UserCategoryBrowse from "./user-category-browse"
 import { PaginatedCategories } from "@/interface/interface"
 import { fetchCategory, getCategoryChildren } from "@/lib/constants"
 import { useNavigate } from "react-router-dom"
+import { RxHamburgerMenu } from "react-icons/rx"
 
 interface MenuProps {
   setCloseMenu: (open: boolean) => void
@@ -110,7 +111,7 @@ export default function MainMenu({ setCloseMenu, isOpen }: MenuProps) {
     <div>
       <Drawer direction="left" open={isOpen} onOpenChange={setCloseMenu}>
         <DrawerTrigger>
-          <MenuIcon className="mx-2 mt-2" />
+          <MenuIcon className=" mx-2 mt-2" />
         </DrawerTrigger>
         <DrawerContent className="bg-slate-800 bg-opacity-70 border-slate-900 border-2">
           <DrawerHeader>
@@ -139,11 +140,11 @@ export default function MainMenu({ setCloseMenu, isOpen }: MenuProps) {
     <div>
       <Drawer direction="left">
         <DrawerTrigger>
-          <MenuIcon />
+          <RxHamburgerMenu className="" color="white " size={28} />
         </DrawerTrigger>
-        <DrawerContent>
+        <DrawerContent className="bg-slate-800 bg-opacity-70 border-slate-900 border-2">
           <DrawerHeader>
-            <DrawerTitle>Menu</DrawerTitle>
+            <DrawerTitle>Categories</DrawerTitle>
           </DrawerHeader>
           {data && (
             <UserCategoryBrowse

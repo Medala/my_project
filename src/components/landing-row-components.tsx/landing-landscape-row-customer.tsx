@@ -1,5 +1,9 @@
 import { LandingDataChild, LandingDataRow } from "@/interface/interface"
-import { baseServerUrl, navigateProductDetailUri } from "@/lib/constants"
+import {
+  baseServerUrl,
+  baseStorageUrl,
+  navigateProductDetailUri,
+} from "@/lib/constants"
 import { Key } from "lucide-react"
 import { FaPlus } from "react-icons/fa"
 import { IoAdd } from "react-icons/io5"
@@ -72,15 +76,14 @@ const LandingLandscapeRowCustomer = ({
                     <img
                       className="object-cover  h-full w-full rounded-lg"
                       src={
-                        baseServerUrl + landindDataChild?.picture.thumbnail_path
+                        baseStorageUrl +
+                        landindDataChild?.picture.thumbnail_path
                       }
                       alt=""
                     />
                   </div>
 
-                  <p className="leading-1 [&:not(:first-child)]:mt-1 line-clamp-2 text-xs  sm:text-sm font-semibold text-gray-600">
-                    apple
-                  </p>
+                  <p className="leading-1 [&:not(:first-child)]:mt-1 line-clamp-2 text-xs  sm:text-sm font-semibold text-gray-600"></p>
                 </div>
               )
             }

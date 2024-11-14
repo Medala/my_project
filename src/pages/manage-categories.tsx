@@ -34,14 +34,16 @@ import {
   createNewCategoryApi,
   deleteCategoryApi,
   getCategoryChildren,
+  homePageurl,
 } from "@/lib/constants"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { IoAdd } from "react-icons/io5"
+import { useNavigate } from "react-router-dom"
 
 import { z, object, array, string } from "zod"
 
@@ -52,6 +54,7 @@ const schema = z.object({
 type DashboardFormFieldZ = z.infer<typeof schema>
 
 export default function ManageCategories() {
+  const navigate = useNavigate()
   const queryClient = useQueryClient()
   const [activeCategoryId, setActiveCategoryId] = useState(0)
   const [categoryNavStack, setCategoryNavstack] = useState<
@@ -247,6 +250,13 @@ export default function ManageCategories() {
   function refetchData() {
     refetch()
   }
+
+  useEffect(() => {
+    console.log("we have the total page on use effect")
+    if (localStorage.getItem("role") !== "admin") {
+      navigate(homePageurl)
+    }
+  }, [localStorage.getItem("role")])
 
   const { isLoading, isError, error, data, refetch } = useQuery({
     queryKey: ["categoriesQuery", activeCategoryId],

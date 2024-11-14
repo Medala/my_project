@@ -68,9 +68,11 @@ const OtpForm = ({ goBackToLoginForm, otpId, phone }: Props) => {
     onSuccess: (data) => {
       setLoading(false)
       if (data.otpVerified === true) {
-        console.log("otp was verified")
+        console.log("otp was verified r")
+        console.log(data)
         //  console.log(data.cart_items)
         localStorage.setItem("token", data.token)
+        localStorage.setItem("role", data.role)
         if (data.cart !== null) {
           console.log(data.cart)
           data.cart["cart_items"].map((item) => {
@@ -149,7 +151,7 @@ const OtpForm = ({ goBackToLoginForm, otpId, phone }: Props) => {
           </span>
         </div>
 
-        <div className="flex flex-col items-center md:-mt-40 justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div className="flex flex-col items-center  justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a
             href="#"
             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"

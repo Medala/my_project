@@ -14,13 +14,10 @@ import {
 import {
   aboutPageUrl,
   baseServerUrl,
-  calendarPageUrl,
   contactPageUrl,
   customersPageUrl,
   fetchAllLandingList,
   fetchCategory,
-  groupsPageUrl,
-  inventoryPageUrl,
   loginUrl,
   manageGetAllLandingList,
   navigateProductDetailUri,

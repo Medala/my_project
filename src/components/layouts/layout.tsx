@@ -12,7 +12,7 @@ const Layout = ({ children }: Props) => {
     <>
       <Navbar></Navbar>
       <div className="flex flex-row">
-        <div className="hidden fm: sm:block sm:basis-32">
+        <div className="  ">
           <LeftPanel></LeftPanel>
         </div>
         <div className="w-full">{children}</div>
