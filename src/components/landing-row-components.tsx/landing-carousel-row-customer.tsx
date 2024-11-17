@@ -56,10 +56,10 @@ const LandingCarouselRowCustomer = ({ landingData, index }: Props) => {
                         handleClick(landingDataChild!)
                       }}
                       key={internalIndex}
-                      className="pl-2 md:pl-4 md:basis-1/3 lg:basis-1/4 cursor-pointer"
+                      className="pl-2 md:pl-4 basis-2/3 md:basis-1/3 lg:basis-1/4 cursor-pointer"
                     >
                       <img
-                        className="object-fit  h-full w-full"
+                        className="object-contain aspect-auto w-full"
                         src={
                           baseStorageUrl +
                           landingDataChild?.picture.thumbnail_path

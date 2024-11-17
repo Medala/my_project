@@ -20,6 +20,7 @@ import App from "@/App"
 import { AttachToCategoryDialog } from "@/components/ui/attach-to-category-dialog"
 import { Category } from "@/interface/interface"
 import { MdDelete } from "react-icons/md"
+import imageCompression from "browser-image-compression"
 
 const ACCEPTED_IMAGE_MIME_TYPES = [
   "image/jpeg",
@@ -152,6 +153,8 @@ const CreateProductPage = () => {
       fData.append("gst", variables.gst.toString())
 
       acceptedFiles.forEach((picFile, index) => {
+        // compress the images here
+        // handleImageUpload(picFile, fData, index)
         fData.append(`images[${index}]`, picFile)
       })
 
@@ -242,6 +245,33 @@ const CreateProductPage = () => {
     },
   }
 
+  function handleImageUpload(event: any) {
+    var imageFile = event.target.files[0]
+    console.log("originalFile instanceof Blob", imageFile instanceof Blob) // true
+    console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`)
+
+    var options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    }
+    imageCompression(imageFile, options)
+      .then(function (compressedFile) {
+        console.log(
+          "compressedFile instanceof Blob",
+          compressedFile instanceof Blob
+        ) // true
+        console.log(
+          `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+        ) // smaller than maxSizeMB
+
+        //return uploadToServer(compressedFile); // write your own logic
+      })
+      .catch(function (error) {
+        console.log(error.message)
+      })
+  }
+
   return (
     <>
       <Layout>
@@ -251,6 +281,13 @@ const CreateProductPage = () => {
             action="#"
             encType="multipart/form-data"
           >
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                handleImageUpload(e)
+              }}
+            ></input>
             <div className="w-full py-2 text-center px-4 flex justify-between items-center text-gray-900">
               <button
                 type="button"
