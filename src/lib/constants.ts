@@ -24,8 +24,8 @@ export const userOrderDetailUrl = ordersUrl + "/:id"
 export const loginUrl = "/login"
 export const logoutUrl = "/logout"
 
-export const baseApiUrl = "http://localhost:8002/api/"
-export const baseServerUrl = "http://localhost:8002/"
+export const baseApiUrl = "https://api.sarahpowertools.in/"
+export const baseServerUrl = "https://sarahpowertools.in/"
 export const baseStorageUrl =
   "https://sarahpowertools.s3.ap-south-1.amazonaws.com/"
 

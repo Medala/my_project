@@ -44,8 +44,9 @@ export default function Landing() {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-      },
+      },credentials:"include"
     })
     if (!response.ok) {
       throw new Error("Something went wrong")
