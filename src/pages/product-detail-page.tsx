@@ -11,7 +11,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
 import YoutubePlayer from "@/components/ui/youtube-player"
-import { baseServerUrl, baseStorageUrl } from "@/lib/constants"
+import { baseWebUrl, baseStorageUrl } from "@/lib/constants"
 import { fetchProduct } from "@/queries/queries"
 import { useQuery } from "@tanstack/react-query"
 import { Divide, ZoomIn } from "lucide-react"
@@ -225,7 +225,7 @@ const ProductDetailPage = () => {
                   >
                     <img
                       alt="Chat on WhatsApp"
-                      src="/src/assets/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.svg"
+                      src="/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.svg"
                     />
                   </a>
                 </div>
@@ -381,7 +381,7 @@ const ProductDetailPage = () => {
             <a aria-label="Chat on WhatsApp" href="https://wa.me/9383073699">
               <img
                 alt="Chat on WhatsApp"
-                src="/src/assets/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.svg"
+                src="/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.svg"
               />
             </a>
           </div>

@@ -36,7 +36,11 @@ import ProfileDropdownButton from "./app-dropdown-folder/profile-dropdown-button
   },
 } */
 
-export default function Navbar() {
+interface Props {
+  isSearchPage?: boolean
+}
+
+export default function Navbar({ isSearchPage }: Props) {
   //const items = [{name:"Home", link:"/home"}, {name:"About", link:"/about"}, {name:"Contact", link:"/contact"}];
   const [topRightMenu, toggleTopRightMenu] = useState(false)
   const [closeBrowseMenu, setCloseMenu] = useState(false)
@@ -168,7 +172,7 @@ export default function Navbar() {
           </div>
 
           <div className="md:w-2/6 ">
-            <ProductSearchNavbar />
+            <ProductSearchNavbar isSearchPage={isSearchPage} />
           </div>
 
           <div className="pr-2 z-10 flex items-center justify-between w-4/12 sm:w-6/12 md:w-2/12 ">
@@ -207,11 +211,16 @@ export default function Navbar() {
               </div>
               <div className="flex md:items-end">
                 <span className="flex items-baseline font-bold md:text-2xl text-orange-500 ">
-                  Sarah Power Tools
+                  {isSearchPage === true ? "" : "Sarah Power Tools"}
                 </span>
               </div>
             </div>
           </NavLink>
+          {isSearchPage && (
+            <div className="w-full">
+              <ProductSearchNavbar isSearchPage={isSearchPage} />
+            </div>
+          )}
           <div className="pr-2">
             <ProfileDropdownButton
               pictureUrl={getProfilePic()}
@@ -229,12 +238,18 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="md:hidden fixed bottom-0 w-full bg-gray-900 h-20 py-2 flex justify-between items-center px-4">
+      <div className="md:hidden fixed bottom-0 w-full bg-gray-900  py-1 flex justify-between items-center px-4">
         <MainMenu setCloseMenu={setCloseMenu} isOpen={closeBrowseMenu} />
         <NavLink to={landingPageUrl}>
-          <IoHomeOutline color="white " size={28} />
+          <IoHomeOutline color="white " size={20} />
         </NavLink>
-        <IoSearchOutline color="white " size={28} />
+        <IoSearchOutline
+          color="white "
+          size={20}
+          onClick={() => {
+            navigate("/search")
+          }}
+        />
         <button
           onClick={() => {
             goToCart()

@@ -143,7 +143,7 @@ export default function MainMenu({ setCloseMenu, isOpen }: MenuProps) {
         <DrawerTrigger>
           <RxHamburgerMenu className="" color="white " size={28} />
         </DrawerTrigger>
-        <DrawerContent className="bg-slate-800 bg-opacity-70 border-slate-900 border-2">
+        <DrawerContent className="bg-slate-800 bg-opacity-70 border-slate-900 ">
           <DrawerHeader>
             <DrawerTitle>Categories</DrawerTitle>
           </DrawerHeader>

@@ -14,7 +14,7 @@ import getMyOrdersHook from "@/hooks/get-my-orders"
 import useServerCart from "@/hooks/use-server-cart"
 import useServerOrder from "@/hooks/use-server-order"
 import {
-  baseServerUrl,
+  baseWebUrl,
   generateAdminOrderDetailUrl,
   generateUserOrderDetailUrl,
   loginUrl,

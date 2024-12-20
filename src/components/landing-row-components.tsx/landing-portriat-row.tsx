@@ -1,5 +1,5 @@
 import { LandingDataRow } from "@/interface/interface"
-import { baseServerUrl, baseStorageUrl } from "@/lib/constants"
+import { baseWebUrl, baseStorageUrl } from "@/lib/constants"
 import { IoAdd, IoTrashBinOutline } from "react-icons/io5"
 import { LandingDataDisplayType } from "../app-dropdown-folder/app-dropdown"
 

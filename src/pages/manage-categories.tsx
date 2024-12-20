@@ -118,6 +118,7 @@ export default function ManageCategories() {
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
+      credentials: "include",
     })
     if (!response.ok) {
       throw new Error("Something went wrong")
@@ -175,6 +176,7 @@ export default function ManageCategories() {
           "Access-Control-Allow-Origin": "*", // Required for CORS support to work
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
+        credentials: "include",
 
         body: fData,
       })
@@ -234,6 +236,7 @@ export default function ManageCategories() {
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
+      credentials: "include",
 
       body: deleteCategoryFormData,
     })

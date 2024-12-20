@@ -4,7 +4,7 @@ import {
 } from "@/interface/app_enums"
 import { LandingDataChild, LandingDataRow } from "@/interface/interface"
 import {
-  baseServerUrl,
+  baseWebUrl,
   baseStorageUrl,
   navigateProductDetailUri,
 } from "@/lib/constants"

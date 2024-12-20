@@ -8,12 +8,9 @@ import Navbar from "@components/Navbar"
 import { NavLink, useNavigate } from "react-router-dom"
 import {
   aboutPageUrl,
-  calendarPageUrl,
   contactPageUrl,
   customersPageUrl,
   fetchAllLandingList,
-  groupsPageUrl,
-  inventoryPageUrl,
   loginUrl,
   manageGetAllLandingList,
   navigateProductDetailUri,
@@ -44,9 +41,10 @@ export default function Landing() {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        
+
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-      },credentials:"include"
+      },
+      credentials: "include",
     })
     if (!response.ok) {
       throw new Error("Something went wrong")

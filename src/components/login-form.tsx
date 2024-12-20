@@ -69,6 +69,7 @@ const LoginForm = ({
       Accept: "application/json",
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
     },
+    credentials: "include",
     body: JSON.stringify({
       user_phone: userPhoneInput,
     }),

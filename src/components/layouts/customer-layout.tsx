@@ -8,12 +8,13 @@ import { FaWhatsapp } from "react-icons/fa"
 
 interface Props {
   children: ReactNode
+  isSearchPage?: boolean
 }
 
-const CustomerLayout = ({ children }: Props) => {
+const CustomerLayout = ({ children, isSearchPage }: Props) => {
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar isSearchPage={isSearchPage}></Navbar>
 
       <div className="w-full min-h-screen white">{children}</div>
       {/* footer section */}
@@ -63,7 +64,7 @@ const CustomerLayout = ({ children }: Props) => {
                   >
                     <img
                       alt="Chat on WhatsApp"
-                      src="/src/assets/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.svg"
+                      src="/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.svg"
                     />
                   </a>
                 </div>
@@ -134,7 +135,7 @@ const CustomerLayout = ({ children }: Props) => {
                   >
                     <img
                       alt="Chat on WhatsApp"
-                      src="/src/assets/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.svg"
+                      src="/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.svg"
                     />
                   </a>
                 </div>

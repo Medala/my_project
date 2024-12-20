@@ -13,7 +13,8 @@ import {
 } from "react-router-dom"
 import {
   aboutPageUrl,
-  baseServerUrl,
+  baseStorageUrl,
+  baseWebUrl,
   contactPageUrl,
   customersPageUrl,
   fetchAllLandingList,
@@ -50,6 +51,7 @@ export default function CategoryBrowse() {
         Accept: "application/json",
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
       },
+      credentials: "include",
     })
     if (!response.ok) {
       throw new Error("Something went wrong")
@@ -157,7 +159,7 @@ export default function CategoryBrowse() {
                     <AspectRatio ratio={2 / 3}>
                       <img
                         className="h-full aspect-2/3 object-cover rounded-l-lg "
-                        src={`${baseServerUrl}/${product.image_url}`}
+                        src={`${baseStorageUrl}${product.image_url}`}
                         alt="asdfasdfasdf"
                       ></img>
                     </AspectRatio>
@@ -214,7 +216,7 @@ export default function CategoryBrowse() {
                     <AspectRatio ratio={2 / 3}>
                       <img
                         className="h-full aspect-2/3 object-cover rounded-l-lg "
-                        src={`${baseServerUrl}/${product.image_url}`}
+                        src={`${baseStorageUrl}${product.image_url}`}
                         alt="asdfasdfasdf"
                       ></img>
                     </AspectRatio>

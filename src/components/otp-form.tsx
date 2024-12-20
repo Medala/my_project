@@ -51,6 +51,7 @@ const OtpForm = ({ goBackToLoginForm, otpId, phone }: Props) => {
       Accept: "application/json",
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
     },
+    credentials: "include",
     body: JSON.stringify({
       otp_code: userOtpInput,
       otp_id: otpId,

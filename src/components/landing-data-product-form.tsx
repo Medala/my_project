@@ -132,6 +132,7 @@ const LandingDataProductForm = ({
 
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
+        credentials: "include",
 
         body: fData,
       })

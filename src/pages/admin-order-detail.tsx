@@ -2,7 +2,7 @@ import Layout from "@components/layouts/layout"
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import {
   baseApiUrl,
-  baseServerUrl,
+  baseWebUrl,
   createProductPageUrl,
   getAllOrdersApi,
   myProductDetailEditPageUrl,
@@ -37,6 +37,7 @@ async function getOrderDetail(id: string): Promise<ServerOrderData> {
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
+    credentials: "include",
   })
   if (!response.ok) {
     throw new Error("Something went wrong")
@@ -122,7 +123,7 @@ const AdminOrderDetail = () => {
                         <div className="col-span-1 px-2">
                           <img
                             className="mx-auto col-span-2 w-auto object-contain rounded-sm"
-                            src={`${baseServerUrl}/${_item.product?.image_url}`}
+                            src={`${baseWebUrl}/${_item.product?.image_url}`}
                             alt=""
                           />
                         </div>
@@ -181,7 +182,7 @@ const AdminOrderDetail = () => {
                         <div className="">
                           <img
                             className="mx-auto w-auto object-contain rounded-sm"
-                            src={`${baseServerUrl}/${_item.product?.image_url}`}
+                            src={`${baseWebUrl}/${_item.product?.image_url}`}
                             alt=""
                           />
                         </div>

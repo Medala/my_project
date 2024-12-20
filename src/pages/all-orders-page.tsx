@@ -2,7 +2,7 @@ import Layout from "@components/layouts/layout"
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import {
   baseApiUrl,
-  baseServerUrl,
+  baseWebUrl,
   createProductPageUrl,
   generateAdminOrderDetailUrl,
   getAllOrdersApi,
@@ -35,6 +35,7 @@ async function getAllOrders(page: number): Promise<PaginatedOrderData> {
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
+    credentials: "include",
   })
   if (!response.ok) {
     throw new Error("Something went wrong")

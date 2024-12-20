@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 export const customersPageUrl = "/customers"
 export const homePageurl = "/home"
-export const landingPageUrl = "/landing"
+export const landingPageUrl = "/"
 
 //export const inventoryPageUrl = "/inventory"
 export const aboutPageUrl = "/about"
@@ -23,9 +23,10 @@ export const userOrderDetailUrl = ordersUrl + "/:id"
 
 export const loginUrl = "/login"
 export const logoutUrl = "/logout"
+export const searchPageUrl = "/search"
 
-export const baseApiUrl = "https://api.sarahpowertools.in/"
-export const baseServerUrl = "https://sarahpowertools.in/"
+export const baseApiUrl = "https://api.sarahpowertools.in/api/"
+export const baseWebUrl = "https://sarahpowertools.in/"
 export const baseStorageUrl =
   "https://sarahpowertools.s3.ap-south-1.amazonaws.com/"
 

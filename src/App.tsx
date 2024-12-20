@@ -34,6 +34,7 @@ import {
   navigateGetAllOrders,
   adminOrderDetailUrl,
   userOrderDetailUrl,
+  searchPageUrl,
 } from "lib/constants"
 import Groups from "pages/groups"
 import TomatoPage from "pages/ tomato"
@@ -54,6 +55,7 @@ import AllOrderList from "./pages/all-orders-page"
 import AdminOrderDetail from "./pages/admin-order-detail"
 import UserOrderDetailPage from "./pages/user-order-detail-page"
 import { GoogleOAuthProvider } from "@react-oauth/google"
+import SearchPage from "./pages/search-page"
 
 const queryClient = new QueryClient()
 
@@ -78,6 +80,7 @@ function App() {
                 element={<CategoryBrowse />}
               />
               <Route path={homePageurl} index element={<Landing />} />
+              <Route path={searchPageUrl} index element={<SearchPage />} />
               <Route path={cartUrl} index element={<CartPage />} />
               <Route path={ordersUrl} index element={<OrderPage />} />
               <Route

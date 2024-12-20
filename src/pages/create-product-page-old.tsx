@@ -102,6 +102,7 @@ const CreateProductPageOld = () => {
           "Access-Control-Allow-Origin": "*", // Required for CORS support to work
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
+        credentials: "include",
         body: JSON.stringify({
           title: variables.title,
           image_url: variables.imageUrl,

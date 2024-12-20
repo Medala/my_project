@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog"
 import useServerCart from "@/hooks/use-server-cart"
 import {
-  baseServerUrl,
+  baseWebUrl,
   baseStorageUrl,
   loginUrl,
   navigateProductDetailUri,

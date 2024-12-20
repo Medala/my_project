@@ -1,5 +1,6 @@
 import { appDebounce } from "@/compute/appDebounce"
 import { SearchData } from "@/interface/interface"
+import { useOutsideClick } from "@components/click-outside"
 import {
   myProductSearchApi,
   navbarProductSearchApi,
@@ -13,13 +14,22 @@ import { CiSearch } from "react-icons/ci"
 import { FaCheck } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
 
-function ProductSearchNavbar() {
+interface Props {
+  isSearchPage?: boolean
+}
+
+function ProductSearchNavbar({ isSearchPage }: Props) {
   const navigate = useNavigate()
   const [searchInput, setSearchInput] = useState("")
+  const [showSearchResults, setOpen] = useState(true)
   const [runSearchEnabled, setRunSearchEnabled] = useState(false)
   const [showSearchResultContainer, setShowSearchResultContainer] =
     useState(false)
   // const debouncedSearch = appDebounce(searchInput)
+
+  const ref = useOutsideClick(() => {
+    setOpen(false)
+  })
 
   async function searchMyProducts(query: string): Promise<SearchData> {
     const response = await fetch(`${navbarProductSearchApi}?search=${query}`, {
@@ -30,6 +40,7 @@ function ProductSearchNavbar() {
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
+      credentials: "include",
     })
     if (!response.ok) {
       throw new Error("Something went wrong")
@@ -91,6 +102,7 @@ function ProductSearchNavbar() {
           id="search"
           onChange={(input) => {
             setSearchInput(input.target.value)
+            setOpen(true)
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") alert("take it to a search result page")
@@ -100,8 +112,11 @@ function ProductSearchNavbar() {
           className="w-full rounded-full pl-10 p-2 shadow mt-2   border focus:outline-none focus:shadow-lg text-gray-800 text-sm"
         />
 
-        {data && (
-          <div className="absolute z-50 pb-8 top-13 max-h-5/6 overflow-auto w-full border shadow-lg rounded-lg bg-white">
+        {data && showSearchResults && (
+          <div
+            className="absolute z-50 pb-8 top-13 max-h-5/6 overflow-auto w-full border shadow-lg rounded-lg bg-white"
+            ref={ref}
+          >
             {/* {data?.search_data?.length > 0 && (
               <div className="w-full px-2 pt-2 text-xs text-gray-500 text-center">
                 Most Relevant

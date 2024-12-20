@@ -1,6 +1,6 @@
 import { LandingRowHeight } from "@/interface/app_enums"
 import { LandingDataRow } from "@/interface/interface"
-import { baseServerUrl, baseStorageUrl } from "@/lib/constants"
+import { baseWebUrl, baseStorageUrl } from "@/lib/constants"
 import { IoAdd, IoTrashBinOutline } from "react-icons/io5"
 import {
   Carousel,

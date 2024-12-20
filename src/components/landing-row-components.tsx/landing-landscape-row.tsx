@@ -1,5 +1,5 @@
 import { LandingDataRow } from "@/interface/interface"
-import { baseServerUrl, baseStorageUrl } from "@/lib/constants"
+import { baseWebUrl, baseStorageUrl } from "@/lib/constants"
 import { Key } from "lucide-react"
 import { FaPlus } from "react-icons/fa"
 import { IoAdd } from "react-icons/io5"
