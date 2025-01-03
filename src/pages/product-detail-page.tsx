@@ -24,11 +24,20 @@ import { CartItem, Product } from "@/interface/interface"
 import ManageCategoryListItems from "@/components/manage-categories/manage-category-list"
 import useServerCart from "@/hooks/use-server-cart"
 import ZoomTest from "@/components/zoom-test"
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 const ProductDetailPage = () => {
   const { submitFormMutation } = useServerCart()
   const { productId } = useParams()
   const [addToCartQuantity, setAddToCartQuantity] = useState<number>(1)
+  const [openZoomSheet, toggleZoomSheet] = useState(false)
   /*   const getYouTubeID = require("get-youtube-id") */
   const [youTubeVideoId, setYouTubeVideoId] = useState<string | null>()
   //get the product using the product id
@@ -102,13 +111,16 @@ const ProductDetailPage = () => {
           <div className="col-span-1 h-full">
             <div className=" h-3/5 w-full mt-2 sticky top-0 left-0 ">
               <div className="w-full   aspect-square  ">
-                {/* <img
+                <img
+                  onClick={() => {
+                    toggleZoomSheet(true)
+                  }}
                   className="h-4/6 mx-auto w-auto object-contain rounded-lg"
-                  src={`${baseServerUrl}/${activePicture}`}
+                  src={`${baseStorageUrl}${activePicture}`}
                   alt=""
-                /> */}
+                />
 
-                <ZoomTest imageSrc={`${baseStorageUrl}${activePicture}`} />
+                {/*    <ZoomTest imageSrc={`${baseStorageUrl}${activePicture}`} /> */}
 
                 {/*  product pictures carousel below */}
                 <div className="w-full  flex justify-center">
@@ -272,6 +284,9 @@ const ProductDetailPage = () => {
           <div className="aspect-square p-2 w-full">
             {data && (
               <img
+                onClick={() => {
+                  toggleZoomSheet(true)
+                }}
                 className="mx-auto aspect-square w-full object-contain rounded-lg"
                 src={`${baseStorageUrl}${activePicture}`}
                 alt=""
@@ -439,6 +454,50 @@ const ProductDetailPage = () => {
             ></iframe>
           </div>
         )}
+        <Sheet open={openZoomSheet} onOpenChange={toggleZoomSheet}>
+          <SheetContent side={"top"}>
+            <SheetHeader>
+              <SheetTitle>{data?.title}</SheetTitle>
+            </SheetHeader>
+            <div className="h-screen">
+              <div className="h-5/6">
+                <img
+                  className="h-full mx-auto w-auto object-contain rounded-lg"
+                  src={`${baseStorageUrl}${activePicture}`}
+                  alt=""
+                />
+              </div>
+              {/* <div className="w-full  flex justify-center">
+                {data && (
+                  <Carousel className="w-full max-w-lg">
+                    <CarouselContent className="-ml-1">
+                      {data.pictures.small_paths!.map((pic, index) => (
+                        <CarouselItem key={index} className="pl-1 basis-1/5">
+                          <div className="p-1">
+                            <Card>
+                              <CardContent
+                                onClick={() => {
+                                  setActivePicture(pic)
+                                }}
+                                className="aspect-square p-0"
+                              >
+                                <img
+                                  className="h-full mx-auto object-contain rounded-sm"
+                                  src={`${baseStorageUrl}${pic}`}
+                                  alt=""
+                                />
+                              </CardContent>
+                            </Card>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                  </Carousel>
+                )}
+              </div> */}
+            </div>
+          </SheetContent>
+        </Sheet>
       </CustomerLayout>
     </>
   )
