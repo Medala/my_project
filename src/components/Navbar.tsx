@@ -217,7 +217,7 @@ export default function Navbar({ isSearchPage }: Props) {
             </div>
           </NavLink>
           {isSearchPage && (
-            <div className="w-full">
+            <div className="w-auto">
               <ProductSearchNavbar isSearchPage={isSearchPage} />
             </div>
           )}
