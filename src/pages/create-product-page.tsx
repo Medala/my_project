@@ -283,6 +283,7 @@ const CreateProductPage = () => {
             encType="multipart/form-data"
           >
             <input
+              hidden
               type="file"
               accept="image/*"
               onChange={(e) => {
@@ -488,6 +489,7 @@ const CreateProductPage = () => {
                 </span>
               )}
             </div>
+
             <input
               {...register("imageUrl")}
               type="hidden"

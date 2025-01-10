@@ -25,10 +25,16 @@ export const loginUrl = "/login"
 export const logoutUrl = "/logout"
 export const searchPageUrl = "/search"
 
+/* toggle dev and production */
 export const baseApiUrl = "https://api.sarahpowertools.in/api/"
 export const baseWebUrl = "https://sarahpowertools.in/"
 export const baseStorageUrl =
   "https://sarahpowertools.s3.ap-south-1.amazonaws.com/"
+
+/* export const baseApiUrl = "http://localhost:8002/api/"
+export const baseWebUrl = "http://localhost:3002/"
+export const baseStorageUrl =
+  "https://sarahpowertools.s3.ap-south-1.amazonaws.com/" */
 
 export const postNewUserUrl = baseApiUrl + "login/otp"
 export const loginOtpVerify = baseApiUrl + "login/otp/verify"
