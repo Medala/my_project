@@ -217,7 +217,6 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
   const submitFormMutation = useMutation({
     mutationFn: async (variables: FormValues) => {
       const formData = new FormData()
-      formData.append("_method", "PATCH")
       formData.append("title", variables.title)
       formData.append("description", variables.description)
       formData.append("specifications", variables?.specifications!)
@@ -237,9 +236,9 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
       })
 
       const response = await fetch(updateProductUrl + "/" + productId, {
-        method: "PATCH",
+        method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           "Access-Control-Allow-Origin": "*", // Required for CORS support to work
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
