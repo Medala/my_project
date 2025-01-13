@@ -40,8 +40,9 @@ export default function Landing() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
         Accept: "application/json",
-        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        // Required for CORS support to work
       },
       credentials: "include",
     })
