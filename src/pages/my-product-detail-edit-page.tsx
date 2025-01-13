@@ -237,7 +237,7 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
       })
 
       const response = await fetch(updateProductUrl + "/" + productId, {
-        method: "POST",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*", // Required for CORS support to work
