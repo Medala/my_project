@@ -240,7 +240,7 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "multipart/form-data",
+          // "Content-Type": "multipart/form-data",
           "Access-Control-Allow-Origin": "*", // Required for CORS support to work
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
