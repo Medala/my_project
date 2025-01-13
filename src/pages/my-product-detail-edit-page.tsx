@@ -238,8 +238,8 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
       const response = await fetch(updateProductUrl + "/" + productId, {
         method: "PATCH",
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          // "Content-Type": "application/json",
+          /* Accept: "application/json", */
           "Access-Control-Allow-Origin": "*", // Required for CORS support to work
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
