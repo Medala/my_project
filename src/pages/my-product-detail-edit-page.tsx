@@ -236,7 +236,7 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
       })
 
       const response = await fetch(updateProductUrl + "/" + productId, {
-        method: "PATCH",
+        method: "POST",
         headers: {
           //  "Content-Type": "application/json",
           Accept: "application/json",
