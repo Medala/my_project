@@ -39,10 +39,10 @@ export default function Landing() {
     const response = await fetch(fetchAllLandingList, {
       method: "GET",
       headers: {
-        //  "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
         Accept: "application/json",
-        // Required for CORS support to work
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        Authorization: "Bearer " + localStorage.getItem("token"),
       },
       credentials: "include",
     })
