@@ -237,6 +237,7 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
       })
 
       const response = await fetch(updateProductUrl + "/" + productId, {
+        method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "multipart/form-data",
