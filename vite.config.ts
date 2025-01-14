@@ -12,4 +12,17 @@ export default defineConfig({
     },
   },
   server: { port: 3002 },
+
+  build: {
+    // Enable minification using Terser (this is the default in production)
+    minify: "terser",
+    terserOptions: {
+      compress: {
+        // Remove console.log and other console methods
+        drop_console: true,
+      },
+    },
+    // Optional: You can set additional options like the output directory
+    outDir: path.resolve(__dirname, "dist"), // Customize output directory if needed
+  },
 })
