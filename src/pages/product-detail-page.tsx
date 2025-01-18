@@ -11,7 +11,11 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
 import YoutubePlayer from "@/components/ui/youtube-player"
-import { baseWebUrl, baseStorageUrl } from "@/lib/constants"
+import {
+  baseWebUrl,
+  baseStorageUrl,
+  whatsAppContactNumber,
+} from "@/lib/constants"
 import { fetchProduct } from "@/queries/queries"
 import { useQuery } from "@tanstack/react-query"
 import { Divide, ZoomIn } from "lucide-react"
@@ -231,10 +235,7 @@ const ProductDetailPage = () => {
                   </button>
                 </div>
                 <div className="w-1/2 flex justify-center mt-4">
-                  <a
-                    aria-label="Chat on WhatsApp"
-                    href="https://wa.me/9383073699"
-                  >
+                  <a aria-label="Chat on WhatsApp" href={whatsAppContactNumber}>
                     <img
                       alt="Chat on WhatsApp"
                       src="/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.svg"
@@ -393,7 +394,7 @@ const ProductDetailPage = () => {
           )}
 
           <div className=" w-full flex justify-center my-8 bg-teal">
-            <a aria-label="Chat on WhatsApp" href="https://wa.me/9383073699">
+            <a aria-label="Chat on WhatsApp" href={whatsAppContactNumber}>
               <img
                 alt="Chat on WhatsApp"
                 src="/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.svg"

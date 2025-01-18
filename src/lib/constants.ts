@@ -6,6 +6,8 @@ export const customersPageUrl = "/customers"
 export const homePageurl = "/home"
 export const landingPageUrl = "/"
 
+export const whatsAppContactNumber = "https://wa.me/9612570995"
+
 //export const inventoryPageUrl = "/inventory"
 export const aboutPageUrl = "/about"
 export const contactPageUrl = "/contact"

@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { FaStar } from "react-icons/fa6"
 import { FaStarHalfStroke } from "react-icons/fa6"
 import { FaWhatsapp } from "react-icons/fa"
+import { whatsAppContactNumber } from "@/lib/constants"
 
 interface Props {
   children: ReactNode
@@ -58,10 +59,7 @@ const CustomerLayout = ({ children, isSearchPage }: Props) => {
               </div>
               <div className="mt-2">
                 <div className="">
-                  <a
-                    aria-label="Chat on WhatsApp"
-                    href="https://wa.me/9383073699"
-                  >
+                  <a aria-label="Chat on WhatsApp" href={whatsAppContactNumber}>
                     <img
                       alt="Chat on WhatsApp"
                       src="/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.svg"
@@ -129,10 +127,7 @@ const CustomerLayout = ({ children, isSearchPage }: Props) => {
               </div>
               <div className="mt-2">
                 <div className="">
-                  <a
-                    aria-label="Chat on WhatsApp"
-                    href="https://wa.me/9383073699"
-                  >
+                  <a aria-label="Chat on WhatsApp" href={whatsAppContactNumber}>
                     <img
                       alt="Chat on WhatsApp"
                       src="/ChatOnWhatsAppButton/WhatsAppButtonGreenSmall.svg"
