@@ -23,11 +23,11 @@ const LeftPanel = () => {
           </div>
         </NavLink>
 
-        <NavLink to={customersPageUrl}>
+        {/* <NavLink to={customersPageUrl}>
           <div className="rounded-lg bg-white shadow py-2 text-gray-900 cursor:pointer  p-l-2vb  hover:shadow-lg transition duration-200 cursor-pointer">
             <div className="px-2 text-xs text-center">Customers</div>
           </div>
-        </NavLink>
+        </NavLink> */}
 
         <NavLink to={myProductPageUrl}>
           <div className="rounded-lg bg-white shadow py-2 text-gray-900 cursor:pointer  p-l-2vb  hover:shadow-lg transition duration-200 cursor-pointer">
@@ -55,12 +55,12 @@ const LeftPanel = () => {
       {/* mobile view */}
 
       <div className="z-20 w-full  fixed bottom-0 bg-white border hover:shadow-lg p-2 flex flex-row justify-between md:hidden gap-2">
-        <NavLink to={customersPageUrl}>
+        {/* <NavLink to={customersPageUrl}>
           <div className="rounded-lg bg-white shadow py-2 text-gray-900 cursor:pointer  p-l-2vb  hover:shadow-lg transition duration-200 cursor-pointer">
             <div className="px-2 text-xs text-center">Customers</div>
           </div>
         </NavLink>
-
+ */}
         <NavLink to={myProductPageUrl}>
           <div className="rounded-lg bg-white shadow py-2 text-gray-900 cursor:pointer  p-l-2vb  hover:shadow-lg transition duration-200 cursor-pointer">
             <div className="px-2 text-xs text-center">Products</div>

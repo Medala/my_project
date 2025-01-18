@@ -688,7 +688,7 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-5 gap-4 pt-2 px-4">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 pt-2 px-4">
               {currentPics.map((pic, index) => (
                 <div key={index}>
                   <div className="rounded-lg overflow-hidden min-h-48 shadow-lg hover:shadow-xl relative">
