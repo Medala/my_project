@@ -222,7 +222,7 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
       formData.append("description", variables.description)
       formData.append("specifications", variables?.specifications!)
       formData.append("price", variables.price.toString())
-      formData.append("comopared_price", variables.comparedPrice.toString())
+      formData.append("compared_price", variables.comparedPrice.toString())
       formData.append("quantity", variables.quantity.toString())
       formData.append("gst", variables.gst.toString())
       formData.append("youtube_url", variables?.youtubeUrl!)
