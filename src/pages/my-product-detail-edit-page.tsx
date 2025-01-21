@@ -232,6 +232,9 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
         }
       })
 
+      console.log("here is the compared price")
+      console.log(formData.get("compared_price"))
+
       trashPics.forEach((picFile, index) => {
         formData.append(`trash_pics[${index}]`, picFile)
       })

@@ -113,6 +113,7 @@ function UserProductSearchBar() {
 
               <div
                 onClick={() => {
+                  setSearchInput("")
                   navigateMyProductDetailEditPage(product.id)
                 }}
                 className="px-2 py-1 flex text-sm cursor-pointer hover:bg-blue-100 transition-colors duration-150 "

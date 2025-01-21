@@ -99,6 +99,7 @@ function ProductSearchNavbar({ isSearchPage }: Props) {
     <div className="w-full relative   mx-auto flex items-baseline">
       <div className="relative w-full">
         <input
+          value={searchInput}
           id="search"
           onChange={(input) => {
             setSearchInput(input.target.value)
@@ -133,6 +134,7 @@ function ProductSearchNavbar({ isSearchPage }: Props) {
 
               <div
                 onClick={() => {
+                  setSearchInput("")
                   goToProduct(product.id)
                 }}
                 className="px-2 py-1 flex text-sm cursor-pointer hover:bg-blue-100 transition-colors duration-150 "

@@ -51,7 +51,7 @@ const ProductDetailPage = () => {
 
   const cartStore = useBasket()
 
-  const { isLoading, isError, error, data, isFetched } = useQuery({
+  const { isLoading, isError, error, data, isFetched, refetch } = useQuery({
     queryKey: ["productDetail"],
     queryFn: () => fetchProduct(`${productId}`),
     // placeholderData: keepPreviousData,
@@ -73,7 +73,12 @@ const ProductDetailPage = () => {
       setYouTubeVideoId(id)
       console.log(id)
     }
-  }, [data])
+    if (productId) {
+      // fetchProduct(productId)
+      console.log("67677asdfasdfasdfsadfasdfsadfasdf product id has changed")
+      refetch()
+    }
+  }, [data, productId])
 
   function addToCart(product: Product, quantity: number) {
     console.log(`adding to cart quantity ${quantity}`)
