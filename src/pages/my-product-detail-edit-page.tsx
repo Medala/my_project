@@ -562,7 +562,7 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
 
               <div className="px-4 pb-1 pt-2">
                 <label
-                  htmlFor="compared-price"
+                  htmlFor="compared_price"
                   className="mb-2 block text-sm font-medium text-gray-900"
                 >
                   Compared Price:
@@ -570,7 +570,7 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
                 <input
                   {...register("comparedPrice")}
                   type="number"
-                  id="compared-price"
+                  id="compared_price"
                   aria-describedby="helper-text-explanation"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 />
@@ -586,7 +586,7 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
                   htmlFor="quantity"
                   className="mb-2 block text-sm font-medium text-gray-900"
                 >
-                  Compared Price:
+                  Quantity:
                 </label>
                 <input
                   {...register("quantity")}
@@ -604,7 +604,7 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
 
               <div className="px-4 pb-1 pt-2">
                 <label
-                  htmlFor="compared-price"
+                  htmlFor="gst"
                   className="mb-2 block text-sm font-medium text-gray-900"
                 >
                   GST:
