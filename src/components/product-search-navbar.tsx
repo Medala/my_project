@@ -101,6 +101,7 @@ function ProductSearchNavbar({ isSearchPage }: Props) {
         <input
           value={searchInput}
           id="search"
+          autoFocus
           onChange={(input) => {
             setSearchInput(input.target.value)
             setOpen(true)

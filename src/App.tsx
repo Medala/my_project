@@ -56,6 +56,7 @@ import AdminOrderDetail from "./pages/admin-order-detail"
 import UserOrderDetailPage from "./pages/user-order-detail-page"
 import { GoogleOAuthProvider } from "@react-oauth/google"
 import SearchPage from "./pages/search-page"
+import ScrollToTop from "./components/scroll-to-top"
 
 const queryClient = new QueryClient()
 
@@ -65,6 +66,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <div className="App">
           <BrowserRouter>
+            <ScrollToTop />
             <Routes>
               <Route index element={<Landing />} />
               <Route path={landingPageUrl} index element={<Landing />} />
