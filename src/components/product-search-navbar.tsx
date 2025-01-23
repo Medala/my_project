@@ -110,7 +110,7 @@ function ProductSearchNavbar({ isSearchPage }: Props) {
           }}
           type="text"
           placeholder="Search Product"
-          className="w-full rounded-full pl-10 p-2 shadow mt-2   border focus:outline-none focus:shadow-lg text-gray-800 text-sm"
+          className="w-full rounded-full pl-10 p-2 shadow mt-2   border focus:outline-none focus:shadow-lg text-gray-800 text-base"
         />
 
         {data && showSearchResults && (

@@ -76,7 +76,7 @@ export default function AppDropdownButton({
         )
         break
       case AppDropdownIcon.slOptionsVertical:
-        console.log("return slOptionsVertical")
+        //  console.log("return slOptionsVertical")
         return (
           <>
             <SlOptionsVertical color={color} />

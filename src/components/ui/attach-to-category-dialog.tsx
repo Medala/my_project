@@ -126,10 +126,10 @@ export function AttachToCategoryDialog({
       const nextList = [...categoryNavStack]
       const newList = nextList.slice(0, index + 1)
       setCategoryNavstack(newList)
-      console.log("below is the new list")
-      console.log(newList)
-      console.log("below is the index")
-      console.log(index)
+      //   console.log("below is the new list")
+      // console.log(newList)
+      // console.log("below is the index")
+      //  console.log(index)
       /* setActiveCategoryId(newList[index].category_id)
       setActiveCategoryName(newList[index].name) */
       setCurrentActiveCategory(newList[index].category_id, newList[index].name)
@@ -147,7 +147,7 @@ export function AttachToCategoryDialog({
   async function fetchMainOrChildCategories(
     id: number
   ): Promise<PaginatedCategories> {
-    console.log("Bearer " + localStorage.getItem("token"))
+    //console.log("Bearer " + localStorage.getItem("token"))
     const response = await fetch(getCategoryChildren(id), {
       method: "GET",
       headers: {
@@ -179,14 +179,14 @@ export function AttachToCategoryDialog({
 
   const submitFormMutation = useMutation({
     mutationFn: async (variables: DashboardFormFieldZ) => {
-      console.log("submitFormMutation run mek")
+      //  console.log("submitFormMutation run mek")
 
       const fData = new FormData()
 
       fData.append("name", variables.name)
       fData.append("category_id", activeCategoryId.toString())
-      console.log("this is the form data before submitting")
-      console.log(fData)
+      //   console.log("this is the form data before submitting")
+      //  console.log(fData)
 
       const response = await fetch(createNewCategoryApi, {
         method: "POST",
@@ -204,8 +204,8 @@ export function AttachToCategoryDialog({
       return response.json()
     },
     onSuccess: (data) => {
-      console.log("success ringu ppppp")
-      console.log(data)
+      //   console.log("success ringu ppppp")
+      //   console.log(data)
       toast({
         description: "New category created",
       })
@@ -226,9 +226,9 @@ export function AttachToCategoryDialog({
 
   const onSubmit = async (submittedData: DashboardFormFieldZ) => {
     try {
-      console.log("Below is the submitted data")
+      //  console.log("Below is the submitted data")
 
-      console.log(submittedData)
+      //  console.log(submittedData)
       throw new Error()
     } catch (error) {
       setError("root", {
@@ -264,9 +264,9 @@ export function AttachToCategoryDialog({
 
       body: deleteCategoryFormData,
     })
-    console.log("Reached the server to delete a category")
+    //console.log("Reached the server to delete a category")
     const theResponse = await response.json()
-    console.log(theResponse)
+    //console.log(theResponse)
     setShowDeleteDialog(false)
     refetchData()
     /// to do
@@ -284,8 +284,8 @@ export function AttachToCategoryDialog({
     // placeholderData: keepPreviousData,
   })
   if (data) {
-    console.log("Categories fetched")
-    console.log(data)
+    // console.log("Categories fetched")
+    // console.log(data)
   }
   if (error) {
     console.log(error)

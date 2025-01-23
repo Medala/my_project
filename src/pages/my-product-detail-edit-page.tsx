@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useDropzone } from "react-dropzone"
 import { CiMenuKebab } from "react-icons/ci"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   attachCategoryAPI,
   createProductUrl,
@@ -51,6 +52,7 @@ const schema = z.object({
   price: z.coerce.number().min(1, "Price is required"),
   comparedPrice: z.coerce.number(),
   quantity: z.coerce.number(),
+  freeDelivery: z.boolean().default(false),
   gst: z.coerce.number(),
   imageUrl: z.string(),
   images: z.any(),
@@ -149,6 +151,8 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
     setError,
     clearErrors,
     reset,
+    setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     /*     defaultValues: product
@@ -190,6 +194,7 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
       price: data?.price,
       comparedPrice: data?.compared_price,
       quantity: data?.quantity,
+      freeDelivery: data?.free_delivery ? true : false,
       gst: data?.gst,
       imageUrl: data?.image_url,
     })
@@ -226,14 +231,12 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
       formData.append("quantity", variables.quantity.toString())
       formData.append("gst", variables.gst.toString())
       formData.append("youtube_url", variables?.youtubeUrl!)
+      formData.append("free_delivery", variables.freeDelivery.toString())
       acceptedFiles.forEach((picFile, index) => {
         if (index <= allowedPicIndex) {
           formData.append(`images[${index}]`, picFile)
         }
       })
-
-      console.log("here is the compared price")
-      console.log(formData.get("compared_price"))
 
       trashPics.forEach((picFile, index) => {
         formData.append(`trash_pics[${index}]`, picFile)
@@ -366,8 +369,8 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
       multiple: true,
       onDrop: (acceptedFiles) => {
         clearErrors("images")
-        console.log("belo is the accepted files")
-        console.log(acceptedFiles)
+        //console.log("belo is the accepted files")
+        //console.log(acceptedFiles)
         let currentPicCount = currentPics.length
         let allowedNumberOfNewPics = 5 - currentPicCount
         setAllowedPicCount(allowedNumberOfNewPics - 1)
@@ -408,9 +411,9 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
 
       body: deleteCategoryFormData,
     })
-    console.log("Reached the server to delete a category")
+    //console.log("Reached the server to delete a category")
     const theResponse = await response.json()
-    console.log(theResponse)
+    //console.log(theResponse)
 
     refetchData()
     /// to do
@@ -454,6 +457,8 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
     setAttachToCategory(category)
     attachCategory(category.id)
   }
+
+  const freeDelivery = watch("freeDelivery")
 
   return (
     <>
@@ -605,8 +610,31 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
                 )}
               </div>
 
-              <div className="px-4 pb-1 pt-2">
-                <label
+              <div className="px-4 pb-1 pt-2 my-auto">
+                <div className="mb-2 block text-sm font-medium text-gray-900">
+                  Free Delivery?
+                </div>
+                <div className="flex items-center space-x-2 ">
+                  <Checkbox
+                    checked={freeDelivery}
+                    onCheckedChange={(value) => {
+                      if (value === true) {
+                        setValue("freeDelivery", true)
+                      } else {
+                        setValue("freeDelivery", false)
+                      }
+                    }}
+                    // {...register("freeDelivery")}
+                    id="free_delivery"
+                  />
+                  <label
+                    htmlFor="free_delivery"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Free Delivery theih a nih chuan tick tur!
+                  </label>
+                </div>
+                {/*  <label
                   htmlFor="gst"
                   className="mb-2 block text-sm font-medium text-gray-900"
                 >
@@ -623,7 +651,7 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
                   <span className="text-xs text-red-500">
                     {errors.gst.message}
                   </span>
-                )}
+                )} */}
               </div>
             </div>
 
@@ -831,10 +859,10 @@ const MyProductDetailEditPage = ({ product }: UseFormProps) => {
 
               <div className="fixed bottom-16 md:bottom-4 right-4">
                 <button
-                  disabled={isSubmitting}
+                  disabled={submitFormMutation.isPending}
                   className="bg-orange-400 hover:bg-orange-500 text-white cursor-pointer rounded-full py-2 px-6 shadow-lg"
                 >
-                  {isSubmitting ? "Loading..." : "Save"}
+                  {submitFormMutation.isPending ? "Updating..." : "Save"}
                 </button>
               </div>
             </div>

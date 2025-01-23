@@ -11,6 +11,7 @@ export interface Product {
   price: number
   gst: number
   compared_price: number
+  free_delivery: boolean
   specification?: string
   pictures: ProductPictures
   quantityInCard: number | null
@@ -34,6 +35,7 @@ export interface ProductWithCategory {
   price: number
   compared_price: number
   quantity: number
+  free_delivery: boolean
   gst: number
   product_video: string | null
   pictures: ProductPictures

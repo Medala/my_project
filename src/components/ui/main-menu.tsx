@@ -34,7 +34,7 @@ export default function MainMenu({ setCloseMenu, isOpen }: MenuProps) {
   async function fetchMainOrChildCategories(
     id: number
   ): Promise<PaginatedCategories> {
-    console.log("Bearer " + localStorage.getItem("token"))
+    // console.log("Bearer " + localStorage.getItem("token"))
     const response = await fetch(getCategoryChildren(id), {
       method: "GET",
       headers: {
@@ -90,8 +90,8 @@ export default function MainMenu({ setCloseMenu, isOpen }: MenuProps) {
       navigate(`/category/${id}`)
     }
   }
-  console.log("categoryNavHistory")
-  console.log(categoryNavHistory)
+  // console.log("categoryNavHistory")
+  // console.log(categoryNavHistory)
 
   function navigateBack() {
     if (categoryNavHistory.length !== 1) {

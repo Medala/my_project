@@ -1,5 +1,6 @@
 import CustomerLayout from "@/components/layouts/customer-layout"
 import { Card, CardContent } from "@/components/ui/card"
+import { TbTruckDelivery } from "react-icons/tb"
 import {
   Carousel,
   CarouselContent,
@@ -183,6 +184,14 @@ const ProductDetailPage = () => {
                     &#8377; {data.price}
                   </h4>
                 </div>
+                {data.free_delivery == true && (
+                  <div className="px4 py-1 flex items-center  w-max bg-amber-200 shadow-lg px-2 rounded-lg">
+                    <p className="leading-7 [&:not(:first-child)]:mt-1  text-green-600">
+                      Delivery Charge: &#8377;0
+                    </p>
+                    <TbTruckDelivery color="green" size={24} className="mx-2" />
+                  </div>
+                )}
 
                 <div className=" pb-1 pt-2 w-1/2 flex justify-center">
                   <div className="w-full ">
@@ -340,6 +349,15 @@ const ProductDetailPage = () => {
                   {data.description}
                 </p>
               </div>
+
+              {data.free_delivery == true && (
+                <div className="ml-4 px-4 py-1 flex items-center  w-max bg-amber-200 shadow-lg  rounded-lg">
+                  <p className="leading-7 [&:not(:first-child)]:mt-1  text-green-600">
+                    Delivery Charge: &#8377;0
+                  </p>
+                  <TbTruckDelivery color="green" size={24} className="mx-2" />
+                </div>
+              )}
               <div className="p-4">
                 <p className="leading-7 [&:not(:first-child)]:mt-1 line-through text-amber-600">
                   &#8377; {data.compared_price}

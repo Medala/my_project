@@ -98,10 +98,10 @@ export default function ManageCategories() {
       const nextList = [...categoryNavStack]
       const newList = nextList.slice(0, index + 1)
       setCategoryNavstack(newList)
-      console.log("below is the new list")
-      console.log(newList)
-      console.log("below is the index")
-      console.log(index)
+      //  console.log("below is the new list")
+      //  console.log(newList)
+      //  console.log("below is the index")
+      //  console.log(index)
       setActiveCategoryId(newList[index].category_id)
     }
   }
@@ -109,7 +109,7 @@ export default function ManageCategories() {
   async function fetchMainOrChildCategories(
     id: number
   ): Promise<PaginatedCategories> {
-    console.log("Bearer " + localStorage.getItem("token"))
+    // console.log("Bearer " + localStorage.getItem("token"))
     const response = await fetch(getCategoryChildren(id), {
       method: "GET",
       headers: {
@@ -158,14 +158,14 @@ export default function ManageCategories() {
 
   const submitFormMutation = useMutation({
     mutationFn: async (variables: DashboardFormFieldZ) => {
-      console.log("submitFormMutation run mek")
+      //   console.log("submitFormMutation run mek")
 
       const fData = new FormData()
 
       fData.append("name", variables.name)
       fData.append("category_id", activeCategoryId.toString())
-      console.log("this is the form data before submitting")
-      console.log(fData)
+      //  console.log("this is the form data before submitting")
+      //  console.log(fData)
 
       const response = await fetch(createNewCategoryApi, {
         method: "POST",
@@ -183,8 +183,8 @@ export default function ManageCategories() {
       return response.json()
     },
     onSuccess: (data) => {
-      console.log("success ringu ppppp")
-      console.log(data)
+      // console.log("success ringu ppppp")
+      //  console.log(data)
       toast({
         description: "hjmfjhmfvj,  khkkhk kkk",
       })
@@ -202,9 +202,9 @@ export default function ManageCategories() {
 
   const onSubmit = async (submittedData: DashboardFormFieldZ) => {
     try {
-      console.log("Below is the submitted data")
+      //console.log("Below is the submitted data")
 
-      console.log(submittedData)
+      // console.log(submittedData)
       throw new Error()
     } catch (error) {
       setError("root", {
@@ -240,9 +240,9 @@ export default function ManageCategories() {
 
       body: deleteCategoryFormData,
     })
-    console.log("Reached the server to delete a category")
+    // console.log("Reached the server to delete a category")
     const theResponse = await response.json()
-    console.log(theResponse)
+    //  console.log(theResponse)
     setShowDeleteDialog(false)
     refetchData()
     /// to do
@@ -255,7 +255,7 @@ export default function ManageCategories() {
   }
 
   useEffect(() => {
-    console.log("we have the total page on use effect")
+    //  console.log("we have the total page on use effect")
     if (localStorage.getItem("role") !== "admin") {
       navigate(homePageurl)
     }
@@ -267,8 +267,8 @@ export default function ManageCategories() {
     // placeholderData: keepPreviousData,
   })
   if (data) {
-    console.log("Categories fetched")
-    console.log(data)
+    // console.log("Categories fetched")
+    // console.log(data)
   }
   if (error) {
     console.log(error)

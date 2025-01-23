@@ -76,7 +76,7 @@ export default function ProfileDropdownButton({
         )
         break
       case AppDropdownIcon.slOptionsVertical:
-        console.log("return slOptionsVertical")
+        //  console.log("return slOptionsVertical")
         return (
           <>
             <SlOptionsVertical color={color} />

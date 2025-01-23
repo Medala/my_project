@@ -88,14 +88,14 @@ export default function Navbar({ isSearchPage }: Props) {
   const loginLogout: AppDropdownChild = {
     title: localStorage.getItem("token") ? "Logout" : "Login",
     appDropdownFunction: () => {
-      console.log(localStorage.getItem("token"))
+      // console.log(localStorage.getItem("token"))
 
       localStorage.getItem("token") ? logoutAndRedirect() : goToLogin()
     },
   }
 
   function logoutAndRedirect() {
-    console.log("loggin out")
+    // console.log("loggin out")
     localStorage.clear()
     cartStore.actions.clearBasket()
     navigate(landingPageUrl)
@@ -136,11 +136,11 @@ export default function Navbar({ isSearchPage }: Props) {
     const user = localStorage.getItem("user")
     if (user !== null) {
       const us = JSON.parse(user)
-      console.log("we have a user in storage")
-      console.log(us.picture)
+      // console.log("we have a user in storage")
+      // console.log(us.picture)
       return us.picture ?? null
     } else {
-      console.log("no user in storageeeeeee")
+      // console.log("no user in storageeeeeee")
       return null
     }
   }
@@ -217,19 +217,21 @@ export default function Navbar({ isSearchPage }: Props) {
             </div>
           </NavLink>
           {isSearchPage && (
-            <div className="w-auto">
+            <div className="w-full pr-4">
               <ProductSearchNavbar isSearchPage={isSearchPage} />
             </div>
           )}
-          <div className="pr-2">
-            <ProfileDropdownButton
-              pictureUrl={getProfilePic()}
-              icon={AppDropdownIcon.user}
-              buttonTitle=""
-              dropdownType={AppDropdownType.iconButton}
-              children={returnUserButtons(localStorage.getItem("role"))}
-            />
-          </div>
+          {!isSearchPage && (
+            <div className="pr-2">
+              <ProfileDropdownButton
+                pictureUrl={getProfilePic()}
+                icon={AppDropdownIcon.user}
+                buttonTitle=""
+                dropdownType={AppDropdownType.iconButton}
+                children={returnUserButtons(localStorage.getItem("role"))}
+              />
+            </div>
+          )}
           {/*         <div className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium my-auto hover:bg-gray-700 hover:cursor-pointer">Dashboard</div>
                     <div className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium  my-auto hover:bg-gray-700 hover:cursor-pointer">Team</div>
                     <div className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium  my-auto hover:bg-gray-700 hover:cursor-pointer">Projects</div>

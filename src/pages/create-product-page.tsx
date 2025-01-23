@@ -9,6 +9,8 @@ import { z, object, array, string, nullable } from "zod"
 import { useDropzone, FileWithPath } from "react-dropzone"
 import { IoIosArrowBack } from "react-icons/io"
 import { IoAdd } from "react-icons/io5"
+import { Checkbox } from "@/components/ui/checkbox"
+
 import AppDropdownButton, {
   AppDropdownChild,
   AppDropdownIcon,
@@ -35,9 +37,10 @@ const schema = z.object({
   description: z.string().max(1000),
   specifications: z.string().max(1000).nullable(),
   price: z.coerce.number().min(1, "Price is required"),
-  gst: z.coerce.number(),
+  //  gst: z.coerce.number(),
   comparedPrice: z.coerce.number(),
   quantity: z.coerce.number().nullable(),
+  freeDelivery: z.boolean().default(false),
   imageUrl: z.string(),
   youtubeUrl: z.string().nullable(),
   images: z.any(),
@@ -125,6 +128,8 @@ const CreateProductPage = () => {
     register,
     handleSubmit,
     setError,
+    watch,
+    setValue,
     clearErrors,
     formState: { errors, isSubmitting },
   } = useForm<FormFieldsNew>({
@@ -150,7 +155,8 @@ const CreateProductPage = () => {
       fData.append("youtube_url", variables?.youtubeUrl!)
       // fData.append("image_url", "https://picsum.photos/200/300")
       fData.append("compared_price", variables.comparedPrice.toString())
-      fData.append("gst", variables.gst.toString())
+      // fData.append("gst", variables.gst.toString())
+      fData.append("free_delivery", variables.freeDelivery.toString())
 
       acceptedFiles.forEach((picFile, index) => {
         // compress the images here
@@ -182,6 +188,10 @@ const CreateProductPage = () => {
       if (!response.ok) {
         throw await response.json()
       }
+      if (errors) {
+        console.log("we have a submit error: ")
+        console.log(errors)
+      }
 
       return response.json()
     },
@@ -191,7 +201,6 @@ const CreateProductPage = () => {
       toast({
         description: "Product created successfully",
       })
-
       navigateToProductList()
     },
     onError: (errors) => {
@@ -204,6 +213,7 @@ const CreateProductPage = () => {
   })
 
   const onSubmit = async (submittedData: FormFieldsNew) => {
+    console.log("run the sumbit")
     if (acceptedFiles.length == 0) {
       setError("images", {
         message: "Picture is required",
@@ -272,6 +282,8 @@ const CreateProductPage = () => {
         console.log(error.message)
       })
   }
+
+  const freeDelivery = watch("freeDelivery")
 
   return (
     <>
@@ -425,8 +437,30 @@ const CreateProductPage = () => {
                 )}
               </div>
 
-              <div className="px-4 pb-1 pt-2">
-                <label
+              <div className="px-4 pb-1 pt-2 my-auto">
+                <div className="mb-2 block text-sm font-medium text-gray-900">
+                  Free Delivery?
+                </div>
+                <div className="flex items-center space-x-2 ">
+                  <Checkbox
+                    checked={freeDelivery}
+                    onCheckedChange={(value) => {
+                      if (value === true) {
+                        setValue("freeDelivery", true)
+                      } else {
+                        setValue("freeDelivery", false)
+                      }
+                    }}
+                    id="free_delivery"
+                  />
+                  <label
+                    htmlFor="free_delivery"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Free Delivery theih a nih chuan tick tur!
+                  </label>
+                </div>
+                {/* <label
                   htmlFor="compared-price"
                   className="mb-2 block text-sm font-medium text-gray-900"
                 >
@@ -444,7 +478,7 @@ const CreateProductPage = () => {
                   <span className="text-xs text-red-500">
                     {errors.gst.message}
                   </span>
-                )}
+                )} */}
               </div>
 
               <div className="px-4 pb-1 pt-2">
@@ -589,11 +623,11 @@ const CreateProductPage = () => {
             {/* end of image upload section */}
 
             <button
-              disabled={isSubmitting}
+              disabled={submitFormMutation.isPending}
               type="submit"
               className=" fixed bottom-14 right-4 mb-2 me-2 bg-orange-400 hover:bg-orange-500 text-white cursor-pointer rounded-full py-2 px-6 shadow-lg"
             >
-              {isSubmitting ? "Loading..." : "Save"}
+              {submitFormMutation.isPending ? "Saving..." : "Save"}
             </button>
 
             {/*   {errors.root && (
